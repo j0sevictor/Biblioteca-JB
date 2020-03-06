@@ -4,13 +4,17 @@
 		<meta charset="utf-8">
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="estilo.css">
+		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
 	</head>
 
 	<body>
 
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.jpg" width="10%">
+				<img src="_imagens/logo.png" width="100%">
+			</div>
+			<div id="titulo">
+				<h2>Página de Gerenciamento</h2>
 			</div>
 		</header>	
 
@@ -29,17 +33,17 @@
 			<div id="livro" class="formulario">
 				<form action="cadastroLivro.php" method="POST">
 					<h1>Cadastro de livros</h1>
-					<table>
+					<table class="formulario">
 						
 						<tr>
-							<td>Título</td>
-							<td><input type="text" name="titulo" id="titulo" placeholder="Título"></td>
+							
+							<td>Título<input type="text" name="titulo" id="titulo" class="field"></td>
 						</tr>
 
 						<tr>
-							<td>Gênero</td>
-							<td>
-								<select name="genero" id="genero">
+							
+							<td>Gênero
+								<select name="genero" id="genero" class="field">
 									<option value="Romance">Romance</option>
 									<option value="Ficção Científica">Ficção Científica</option>
 									<option value="Clássico">Clássico</option>
@@ -79,9 +83,9 @@
 						</tr>
 
 						<tr>
-							<td>Autor</td>
-							<td>
-								<select name="nomeautor" id="nomeautor">
+							
+							<td>Autor
+								<select name="nomeautor" id="nomeautor" class="field">
 									<?php
 										include_once('Conexao.php');
 										$sql = 'SELECT * FROM autor';
@@ -100,29 +104,29 @@
 						</tr>
 
 						<tr>
-							<td>ISBN</td>
-							<td><input type="text" name="isbn" id="isbn" placeholder="ISBN do Livro"></td>
+							
+							<td>ISBN<input type="text" name="isbn" id="isbn" class="field"></td>
 						</tr>
 
 
 						<tr>
-							<td>CDD</td>
-							<td><input type="text" name="cdd" id="cdd" placeholder="CDD"></td>
+							
+							<td>CDD<input type="text" name="cdd" id="cdd" class="field"></td>
 						</tr>
 
 						<tr>
-							<td>Número de Exemplares</td>
-							<td><input type="number" name="exemp" id="exemp"></td>
+							
+							<td>Exemplares<input type="number" name="exemp" id="exemp" class="field"></td>
 						</tr>
 
 
 						<tr>
-							<td>Data da Remessa</td>
-							<td><input type="date" name="dataR" id="dataR" placeholder="Data de Chegada"></td>
+							
+							<td>Data da Remessa<input type="date" class="field" name="dataR" id="dataR" ></td>
 						</tr>
 
 						<tr>
-							<td colspan="2"><input type="submit" value="Cadastrar"></td>
+							<th><input type="submit" class="enter" value="Cadastrar Livro"></th>
 						</tr>
 						
 					</table>
@@ -132,24 +136,24 @@
 			<div id="autor" class="formulario">
 				<form action="cadastroAutor.php" method="POST">
 					<h1>Autor</h1>
-					<table>
+					<table class="formulario">
 						<tr>
-							<td>Nome</td>
-							<td><input type="text" name="nomeautor" id="nomeautor" placeholder="Nome"></td>
+							
+							<td>Nome<input type="text" name="nomeautor" id="nomeautor" class="field"></td>
 						</tr>
 
 						<tr>
-							<td>Descrição</td>
-							<td><textarea id="desc" name="desc" placeholder=""></textarea></td>
+		
+							<td><i>Descrição</i><textarea id="desc" name="desc" class="field"></textarea></td>
 						</tr>
 
 						<tr>
-							<td>Data Nascimento</td>
-							<td><input type="date" name="datanasc" id="datanasc"></td>
+							
+							<td><i>Nascimento</i><input type="date" class="field" name="datanasc" id="datanasc"></td>
 						</tr>
 
 						<tr>
-							<td colspan="2"><input type="submit" value="Cadastrar"></td>
+							<th><input type="submit" class="enter" value="Cadastrar"></th>
 						</tr>
 
 					</table>

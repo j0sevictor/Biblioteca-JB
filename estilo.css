@@ -10,7 +10,25 @@ body{
 		margin: 0;
 		width: 100%;
 		background-color: green;
-
+		float: left;
+	}
+	div#logo{
+		position: relative;
+		display: block;
+		width: 10%;
+		float: left;
+	}
+	div#titulo{
+		position: relative;
+		display: block;
+		width: 70%;
+		float: left;
+		text-align: center;
+	}
+	div#titulo h2{
+		word-wrap: none;
+		font-size: 2.5vw;
+		color: white;
 	}
 
 /*Menu e Links*/
@@ -52,6 +70,7 @@ body{
 		width: 75%;
 		display: block;
 		float: right;
+		padding-bottom: 5%;
 	}
 	form{
 		position: relative;
@@ -73,17 +92,70 @@ body{
 		display: block;
 		float: right;
 	}
-
-	input.text{
-		border: none;
-		border-bottom: 2px solid #606060;
+	table.formulario{
+		width: 50%;
+	}
+	table.formulario th{
+		padding-top: 5%;
+	}
+	input.field{
+		position: relative;
+		outline: none;
+		width: 100%;
+		border: 2px solid #606060;
+		border-radius: 5px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+	}
+	select.field{
+		position: relative;
+		outline: none;
+		width: 100%;
+		border: 2px solid #606060;
+		border-radius: 5px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+	}
+	textarea.field{
+		position: relative;
+		outline: none;
+		width: 100%;
+		border: 2px solid #606060;
+		border-radius: 5px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+	}
+	input.field:hover{
+		border: 2px solid rgb(247, 122, 6);
+	}
+	select.field:hover{
+		border: 2px solid rgb(247, 122, 6);
+	}
+	textarea.field:hover{
+		border: 2px solid rgb(247, 122, 6);
+	}
+	input.enter{
+		position: relative;
+		outline: none;
+		border: 5px solid #202020;
+		border-radius: 10px;
+		width: 80%;
+		padding-top: 2.5%;
+		padding-bottom: 2.5%;
+		font-weight: bold;
+		font-size: 1;
+		color: aliceblue;
+		background-color: green;
+	}
+	input.enter:hover{
+		background-color: rgb(247, 122, 6);
 	}
 
+	
 /* Rodapé do Site*/
 
 	footer.rodape{
 		position: relative;
-		background-color: black;
+		background-color: crimson;
 		clear: both;
-
 	}
