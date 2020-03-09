@@ -1,0 +1,13 @@
+div#lista{
+	position: relative;
+	margin: 0;
+}
+table.lista{
+	position: relative;
+	border: 2px solid #606060;
+	width: 100%;
+	margin-top: 5%;
+}
+table.lista tr td{
+	text-align: center;
+}

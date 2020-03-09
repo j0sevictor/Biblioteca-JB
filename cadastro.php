@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>BJB</title>
-		<link rel="stylesheet" type="text/css" href="estilo.css">
+		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
 	</head>
 
@@ -21,7 +21,8 @@
 		<nav class="menu">
 			<ul id="links">
 				<a href="cadastro.php" class="linkMenu"><li>Cadastro Livro/Autor</li></a> 
-				<a href="" class="linkMenu"><li>Empréstimos</li></a>
+				<a href="listarLivros.php" class="linkMenu"><li>Listagem dos Livros/Autores</li></a>
+				<a href="emprestimo.php" class="linkMenu"><li>Empréstimos</li></a>
 				<a href="" class="linkMenu"><li>Devoluções</li></a>
 				<a href="" class="linkMenu"><li>Pendências de Livros</li></a>
 				<a href="" class="linkMenu"><li>Dados Gerais</li></a>
