@@ -71,7 +71,7 @@
 						<tr>
 							
 							<td>Livro
-								<select name="ivro" id="livro" class="field">
+								<select name="nomelivro" id="nomelivro" class="field">
 									<?php
 										include_once('Conexao.php');
 										$sql = 'SELECT * FROM livro';
