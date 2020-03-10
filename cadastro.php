@@ -163,7 +163,7 @@
 		</main>
 
 		<footer class="rodape">
-			jn
+			
 		</footer>
 	</body>
 </html>

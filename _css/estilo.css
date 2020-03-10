@@ -125,14 +125,14 @@ body{
 		padding-top: 1%;
 		padding-bottom: 1%;
 	}
-	input.field:hover{
-		border: 2px solid rgb(247, 122, 6);
+	input.field:focus{
+		border-color: rgb(247, 122, 6);
 	}
-	select.field:hover{
-		border: 2px solid rgb(247, 122, 6);
+	select.field:focus{
+		border-color: rgb(247, 122, 6);
 	}
-	textarea.field:hover{
-		border: 2px solid rgb(247, 122, 6);
+	textarea.field:focus{
+		border-color: rgb(247, 122, 6);
 	}
 	input.enter{
 		position: relative;
