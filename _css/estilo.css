@@ -98,6 +98,9 @@ body{
 	table.formulario th{
 		padding-top: 5%;
 	}
+	table.formulario td{
+		padding-top: 2%;
+	} 
 	input.field{
 		position: relative;
 		outline: none;
@@ -125,14 +128,14 @@ body{
 		padding-top: 1%;
 		padding-bottom: 1%;
 	}
-	input.field:focus{
-		border-color: rgb(247, 122, 6);
+	input.field:hover{
+		border: 2px solid rgb(247, 122, 6);
 	}
-	select.field:focus{
-		border-color: rgb(247, 122, 6);
+	select.field:hover{
+		border: 2px solid rgb(247, 122, 6);
 	}
-	textarea.field:focus{
-		border-color: rgb(247, 122, 6);
+	textarea.field:hover{
+		border: 2px solid rgb(247, 122, 6);
 	}
 	input.enter{
 		position: relative;
@@ -148,6 +151,20 @@ body{
 		background-color: green;
 	}
 	input.enter:hover{
+		background-color: rgb(247, 122, 6);
+	}
+	input.file{
+		display: none;
+	}
+	label.file{
+		position: relative;
+		background-color: green;
+		color: #ffffff;
+		cursor: pointer;
+		padding: 1%;
+		border-radius: 5px;
+	}
+	label.file:hover{
 		background-color: rgb(247, 122, 6);
 	}
 

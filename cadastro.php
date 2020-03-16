@@ -32,7 +32,7 @@
 		<main class="conteudo">
 
 			<div id="livro" class="formulario">
-				<form action="cadastroLivro.php" method="POST">
+				<form action="cadastroLivro.php" enctype="multipart/form-data" method="POST">
 					<h1>Cadastro de livros</h1>
 					<table class="formulario">
 						
@@ -127,6 +127,14 @@
 						</tr>
 
 						<tr>
+							<td><label class="file" for="capa">Selecionar Capa</label><input type="file" name="capa" id="capa" class="file"></td>
+						</tr>
+
+						<tr>
+							<td><label class="file" for="contracapa">Selecionar Contracapa</label><input type="file" name="contracapa" id="contracapa" class="file"></td>
+						</tr>
+
+						<tr>
 							<th><input type="submit" class="enter" value="Cadastrar Livro"></th>
 						</tr>
 						
@@ -163,7 +171,7 @@
 		</main>
 
 		<footer class="rodape">
-			
+			jn
 		</footer>
 	</body>
 </html>

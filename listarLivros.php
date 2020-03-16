@@ -34,6 +34,8 @@
 			<div id="lista">
 				<table class="lista">
 					<tr>
+						<th>Capa</th>
+						<TH>Contracapa</TH>
 						<th>ID</th>
 						<th>Título</th>
 						<th>Gênero</th>
@@ -45,21 +47,23 @@
 					</tr>
 					<?php
 						include_once('Conexao.php');
-						$sql = 'select livro.id, livro.titulo, livro. genero, autor.nome as autor, livro.cdd, livro.isbn, livro.exemplaes, livro.dataRemessa
+						$sql = 'select livro.capa, livro.contra, livro.id, livro.titulo, livro.genero, autor.nome as autor, livro.cdd, livro.isbn, livro.exemplares, livro.dataRemessa
 								from livro join autor
-								on livro.autor = autor.id';					
+								on livro.autor = autor.id order by livro.titulo;';					
 						$r = mysqli_query($con, $sql);
 						if ($r) {
 							while ($result = mysqli_fetch_array($r)) {
 					?>
 								<tr>
+									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["capa"] ?>"</td>
+									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["contra"] ?>"</td>
 									<td><?php echo $result["id"]; ?></td>
 									<td><?php echo $result["titulo"]; ?></td>
 									<td><?php echo $result["genero"]; ?></td>
 									<td><?php echo $result["autor"]; ?></td>
 									<td><?php echo $result["cdd"]; ?></td>
 									<td><?php echo $result["isbn"]; ?></td>
-									<td><?php echo $result["exemplaes"]; ?></td>
+									<td><?php echo $result["exemplares"]; ?></td>
 									<td><?php echo $result["dataRemessa"]; ?></td>
 								</tr>
 					<?php
@@ -77,7 +81,7 @@
 					</tr>
 					<?php
 						include_once('Conexao.php');
-						$sql = 'select * from autor';					
+						$sql = 'select * from autor order by nome';					
 						$r = mysqli_query($con, $sql);
 						if ($r) {
 							while ($result = mysqli_fetch_array($r)) {

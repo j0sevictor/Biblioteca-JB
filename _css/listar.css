@@ -11,3 +11,11 @@ table.lista{
 table.lista tr td{
 	text-align: center;
 }
+td.livro{
+	position: relative;
+	width: 10%;
+}
+img.livro{
+	position: relative;
+	width: 100%;
+}

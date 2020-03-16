@@ -7,6 +7,9 @@
 	$data = $_POST["dataR"];
 	$exemp = $_POST["exemp"];
 
+	$capa = $_FILES["capa"]["name"];
+	$ccapa = $_FILES["contracapa"]["name"];
+
 	include_once("Conexao.php");
 
 	$sql = "SELECT id FROM autor WHERE nome = '$autor'";
@@ -17,9 +20,15 @@
 		}
 	}
 
-	$sql = "INSERT INTO Livro VALUES (default, '$titulo', '$gel', '$autor', '$cdd', '$isbn', $exemp, '$data')";
+	$sql = "INSERT INTO Livro VALUES (default, '$titulo', '$gel', '$autor', '$cdd', '$isbn', $exemp, '$data', '$capa', '$ccapa')";
 
 	mysqli_query($con, $sql);
+
+	$targetc = "_imagens/" . $capa;
+	$targetcc = "_imagens/" . $ccapa;
+
+	move_uploaded_file($_FILES["capa"]["tmp_name"], $targetc);
+	move_uploaded_file($_FILES["contracapa"]["tmp_name"], $targetcc);
 
 	header("Location: cadastro.php");
 ?>

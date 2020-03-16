@@ -10,7 +10,7 @@
 
 	include_once("Conexao.php");
 
-	$sql = "SELECT id FROM livro WHERE titulo = '$livro'";
+	$sql = "SELECT id FROM livro WHERE nome = '$livro'";
 	$r = mysqli_query($con, $sql);
 	if ($r) {
 		if ($result = mysqli_fetch_array($r)) {
@@ -22,5 +22,5 @@
 
 	mysqli_query($con, $sql);
 
-	header("Location: emprestimo.php");
+
 ?>
