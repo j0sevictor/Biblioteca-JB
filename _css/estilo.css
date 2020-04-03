@@ -15,8 +15,12 @@ body{
 	div#logo{
 		position: relative;
 		display: block;
-		width: 10%;
+		width: 125px;
 		float: left;
+	}
+	div#logo img{
+		position: relative;
+		width: 100%;
 	}
 	div#titulo{
 		position: relative;
@@ -128,13 +132,13 @@ body{
 		padding-top: 1%;
 		padding-bottom: 1%;
 	}
-	input.field:hover{
+	input.field:focus{
 		border: 2px solid rgb(247, 122, 6);
 	}
-	select.field:hover{
+	select.field:focus{
 		border: 2px solid rgb(247, 122, 6);
 	}
-	textarea.field:hover{
+	textarea.field:focus{
 		border: 2px solid rgb(247, 122, 6);
 	}
 	input.enter{
@@ -151,6 +155,9 @@ body{
 		background-color: green;
 	}
 	input.enter:hover{
+		background-color: rgb(247, 122, 6);
+	}
+	input.enter:focus{
 		background-color: rgb(247, 122, 6);
 	}
 	input.file{

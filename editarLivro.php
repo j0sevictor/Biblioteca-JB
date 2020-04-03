@@ -30,12 +30,19 @@
 
 			<div id="livro" class="formulario">
 				<form action="cadastroLivro.php" enctype="multipart/form-data" method="POST">
-					<h1>Cadastro de livros</h1>
+					<h1>Edição de Dados: livro</h1>
 					<table class="formulario">
-						
+						<?php
+							include_once('Conexao.php');
+							$sql = 'select livro.capa, livro.contra, livro.id, livro.titulo, livro.genero, autor.nome as autor, livro.cdd, livro.isbn, livro.exemplares, livro.dataRemessa
+									from livro join autor
+									on livro.autor = autor.id order by livro.titulo;';					
+							$r = mysqli_query($con, $sql);
+							if ($r) {
+								if ($result = mysqli_fetch_array($r)) {
+						?>
 						<tr>
-							
-							<td>Título<input type="text" name="titulo" id="titulo" class="field"></td>
+							<td>Título<input type="text" name="titulo" id="titulo" class="field" value="<?php echo $result['titulo'] ?>"></td>
 						</tr>
 
 						<tr>
@@ -147,36 +154,14 @@
 							<th><input type="submit" class="enter" value="Cadastrar Livro"></th>
 						</tr>
 						
+						<?php
+								}
+							}
+						?>
 					</table>
 				</form>
 			</div>
 
-			<div id="autor" class="formulario">
-				<form action="cadastroAutor.php" method="POST">
-					<h1>Autor</h1>
-					<table class="formulario">
-						<tr>
-							
-							<td>Nome<input type="text" name="nomeautor" id="nomeautor" class="field"></td>
-						</tr>
-
-						<tr>
-		
-							<td><i>Descrição</i><textarea id="desc" name="desc" class="field"></textarea></td>
-						</tr>
-
-						<tr>
-							
-							<td><i>Nascimento</i><input type="date" class="field" name="datanasc" id="datanasc"></td>
-						</tr>
-
-						<tr>
-							<th><input type="submit" class="enter" value="Cadastrar"></th>
-						</tr>
-
-					</table>
-				</form>
-			</div>
 		</main>
 
 		<footer class="rodape">

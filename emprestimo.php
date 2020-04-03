@@ -5,6 +5,8 @@
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+		<script type="text/javascript" src="_javascript/pesquisa.js"></script>
 	</head>
 
 	<body>
@@ -13,9 +15,7 @@
 			<div id="logo">
 				<img src="_imagens/logo.png" width="100%">
 			</div>
-			<div id="titulo">
-				<h2>Página de Gerenciamento</h2>
-			</div>
+
 		</header>	
 
 		<nav class="menu">
@@ -71,21 +71,11 @@
 						<tr>
 							
 							<td>Livro
-								<select name="nomelivro" id="nomelivro" class="field">
-									<?php
-										include_once('Conexao.php');
-										$sql = 'SELECT * FROM livro';
-										$r = mysqli_query($con, $sql);
-										if ($r) {
-											while ($result = mysqli_fetch_array($r)) {
-									?>	
-												<option value="<?php echo $result['titulo'] ?>"><?php echo $result['titulo'] ?></option>	
-									<?php
-												
-											}
-										}
-									?>
-								</select>
+								<input type="text" name="livro" id="livro" class="field">
+								
+								<ul class="resultado">
+		
+								</ul>
 							</td>
 						</tr>
 
@@ -109,21 +99,7 @@
 						<tr>
 							
 							<td>Livro
-								<select name="ivro" id="livro" class="field">
-									<?php
-										include_once('Conexao.php');
-										$sql = 'SELECT * FROM livro';
-										$r = mysqli_query($con, $sql);
-										if ($r) {
-											while ($result = mysqli_fetch_array($r)) {
-									?>	
-												<option value="<?php echo $result['titulo'] ?>"><?php echo $result['titulo'] ?></option>	
-									<?php
-												
-											}
-										}
-									?>
-								</select>
+							
 							</td>
 						</tr>
 

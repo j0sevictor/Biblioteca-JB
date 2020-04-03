@@ -13,7 +13,8 @@ table.lista tr td{
 }
 td.livro{
 	position: relative;
-	width: 10%;
+	width: 100px;
+
 }
 img.livro{
 	position: relative;

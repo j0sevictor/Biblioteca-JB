@@ -14,9 +14,7 @@
 			<div id="logo">
 				<img src="_imagens/logo.png" width="100%">
 			</div>
-			<div id="titulo">
-				<h2>Página de Gerenciamento</h2>
-			</div>
+
 		</header>	
 
 		<nav class="menu">
@@ -35,7 +33,7 @@
 				<table class="lista">
 					<tr>
 						<th>Capa</th>
-						<TH>Contracapa</TH>
+						<th>Contracapa</th>
 						<th>ID</th>
 						<th>Título</th>
 						<th>Gênero</th>
@@ -43,7 +41,7 @@
 						<th>CDD</th>
 						<th>ISBN</th>
 						<th>Exemplares</th>
-						<th>Data da Remessa</th>
+						<th>Data da Remessa</th>	
 					</tr>
 					<?php
 						include_once('Conexao.php');
@@ -65,6 +63,8 @@
 									<td><?php echo $result["isbn"]; ?></td>
 									<td><?php echo $result["exemplares"]; ?></td>
 									<td><?php echo $result["dataRemessa"]; ?></td>
+									<td><a href="editarLivro.php?id=<?php echo $result['id'] ?>"><button>Editar</button></a></td>
+									<td><button>Excluir</button></td>
 								</tr>
 					<?php
 							}
