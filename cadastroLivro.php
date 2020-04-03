@@ -20,9 +20,11 @@
 		}
 	}
 
-	$sql = "INSERT INTO Livro VALUES (default, '$titulo', '$gel', '$autor', '$cdd', '$isbn', $exemp, '$data', '$capa', '$ccapa')";
+	$sql = "INSERT INTO livro VALUES (default, '$titulo', '$gel', '$autor', '$cdd', '$isbn', $exemp, '$data', '$capa', '$ccapa')";
 
-	mysqli_query($con, $sql);
+	if (mysqli_query($con, $sql)){
+		echo '<h1>Foi<h1>';
+	}
 
 	$targetc = "_imagens/" . $capa;
 	$targetcc = "_imagens/" . $ccapa;
@@ -30,5 +32,5 @@
 	move_uploaded_file($_FILES["capa"]["tmp_name"], $targetc);
 	move_uploaded_file($_FILES["contracapa"]["tmp_name"], $targetcc);
 
-	header("Location: cadastro.php");
+	header('Location: cadastro.php');
 ?>
