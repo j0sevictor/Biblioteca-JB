@@ -84,13 +84,13 @@ body{
 		position: relative;
 		margin: 0;
 	}
-	div#livro{
+	div#a{
 		position: relative;
 		width: 50%;
 		display: block;
 		float: left;
 	}
-	div#autor{
+	div#b{
 		position: relative;
 		width: 50%;
 		display: block;

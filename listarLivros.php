@@ -30,6 +30,14 @@
 
 		<main class="conteudo">
 			<div id="lista">
+
+				<h1>Livros</h1>
+
+				<div id="divBusca">
+					<input type="text" id="txtBusca" placeholder="Buscar..."/>
+					<button id="btnBusca">Buscar</button>
+				</div>
+
 				<table class="lista">
 					<tr>
 						<th>Capa</th>
@@ -53,8 +61,8 @@
 							while ($result = mysqli_fetch_array($r)) {
 					?>
 								<tr>
-									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["capa"] ?>"</td>
-									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["contra"] ?>"</td>
+									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["capa"] ?>"></td>
+									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["contra"] ?>"></td>
 									<td><?php echo $result["id"]; ?></td>
 									<td><?php echo $result["titulo"]; ?></td>
 									<td><?php echo $result["genero"]; ?></td>
@@ -63,8 +71,8 @@
 									<td><?php echo $result["isbn"]; ?></td>
 									<td><?php echo $result["exemplares"]; ?></td>
 									<td><?php echo $result["dataRemessa"]; ?></td>
-									<td><a href="editarLivro.php?id=<?php echo $result['id'] ?>"><button>Editar</button></a></td>
-									<td><button>Excluir</button></td>
+									<td><a class="tableLink" href="editarLivro.php?id=<?php echo $result['id'] ?>">Editar</a></td>
+									<td><a class="tableLink">Excluir</a></td>
 								</tr>
 					<?php
 							}

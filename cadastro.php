@@ -28,7 +28,7 @@
 
 		<main class="conteudo">
 
-			<div id="livro" class="formulario">
+			<div id="a" class="formulario">
 				<form action="cadastroLivro.php" enctype="multipart/form-data" method="POST">
 					<h1>Cadastro de livros</h1>
 					<table class="formulario">
@@ -83,7 +83,7 @@
 						<tr>
 							
 							<td>Autor
-								<select name="nomeautor" id="nomeautor" class="field">
+								<select name="autor" id="autor" class="field">
 									<?php
 										include_once('Conexao.php');
 										$sql = 'SELECT id, nome FROM autor ORDER BY nome';
@@ -98,12 +98,11 @@
 											while ($result = mysqli_fetch_array($r)) {
 												if ($result['id'] != $result2['ultimo']) {
 									?>	
-													<option value="<?php echo $result['nome'] ?>"><?php echo $result['nome'] ?></option>	
+													<option value="<?php echo $result['id'] ?>"><?php echo $result['nome'] ?></option>	
 									<?php
 												} else{
 									?>
-													<option value="<?php echo $result['nome'] ?>" selected7
-													><?php echo $result['nome'] ?></option>
+													<option value="<?php echo $result['id'] ?>" selected><?php echo $result['nome'] ?></option>
 									<?php
 												}
 											}
@@ -151,7 +150,7 @@
 				</form>
 			</div>
 
-			<div id="autor" class="formulario">
+			<div id="b" class="formulario">
 				<form action="cadastroAutor.php" method="POST">
 					<h1>Autor</h1>
 					<table class="formulario">

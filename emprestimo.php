@@ -71,8 +71,7 @@
 						<tr>
 							
 							<td>Livro
-								<input type="text" name="livro" id="livro" class="field">
-								
+								<input type="text" name="livroTitulo" id="livroTitulo" class="field">
 								<ul class="resultado">
 		
 								</ul>
@@ -85,6 +84,7 @@
 						
 					</table>
 				</form>
+				
 			</div>
 
 			<div id="livro" class="formulario">

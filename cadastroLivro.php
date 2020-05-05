@@ -3,7 +3,7 @@
 	$isbn = $_POST["isbn"];
 	$titulo = $_POST["titulo"];
 	$cdd = $_POST["cdd"];
-	$autor = $_POST["nomeautor"];
+	$autor = $_POST["autor"];
 	$data = $_POST["dataR"];
 	$exemp = $_POST["exemp"];
 
@@ -11,14 +11,6 @@
 	$ccapa = $_FILES["contracapa"]["name"];
 
 	include_once("Conexao.php");
-
-	$sql = "SELECT id FROM autor WHERE nome = '$autor'";
-	$r = mysqli_query($con, $sql);
-	if ($r) {
-		if ($result = mysqli_fetch_array($r)) {
-			$autor = $result["id"];
-		}
-	}
 
 	$sql = "INSERT INTO livro VALUES (default, '$titulo', '$gel', '$autor', '$cdd', '$isbn', $exemp, '$data', '$capa', '$ccapa')";
 

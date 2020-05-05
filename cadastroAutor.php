@@ -3,8 +3,6 @@
 	$desc = $_POST["desc"];
 	$data = $_POST["datanasc"];
 
-	echo $data;
-
 	include_once("Conexao.php");
 
 	$sql = "INSERT INTO autor VALUES (default, '$nome', '$data', '$desc')";
