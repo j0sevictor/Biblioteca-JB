@@ -4,8 +4,13 @@
 	$data = $_POST["datanasc"];
 
 	include_once("Conexao.php");
-
-	$sql = "INSERT INTO autor VALUES (default, '$nome', '$data', '$desc')";
+	
+	if (!empty($data)){
+		$sql = "INSERT INTO autor VALUES (default, '$nome', '$data', '$desc')";
+	}else{
+		$sql = "INSERT INTO autor VALUES (default, '$nome', default, '$desc')";
+	}
+	
 
 	mysqli_query($con, $sql);
 

@@ -1,3 +1,6 @@
+<?php
+	include_once('autenticador.php');
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,16 +20,7 @@
 
 		</header>	
 
-		<nav class="menu">
-			<ul id="links">
-				<a href="cadastro.php" class="linkMenu"><li>Cadastro Livro/Autor</li></a> 
-				<a href="listarLivros.php" class="linkMenu"><li>Listagem dos Livros/Autores</li></a>
-				<a href="emprestimo.php" class="linkMenu"><li>Empréstimos</li></a>
-				<a href="" class="linkMenu"><li>Devoluções</li></a>
-				<a href="" class="linkMenu"><li>Pendências de Livros</li></a>
-				<a href="" class="linkMenu"><li>Dados Gerais</li></a>
-			</ul>
-		</nav>
+		<?php include_once('menu.html'); ?>
 
 		<main class="conteudo">
 			<div id="lista">
@@ -55,7 +49,7 @@
 						include_once('Conexao.php');
 						$sql = 'select livro.capa, livro.contra, livro.id, livro.titulo, livro.genero, autor.nome as autor, livro.cdd, livro.isbn, livro.exemplares, livro.dataRemessa
 								from livro join autor
-								on livro.autor = autor.id order by livro.titulo;';					
+								on livro.autor = autor.id order by livro.titulo';					
 						$r = mysqli_query($con, $sql);
 						if ($r) {
 							while ($result = mysqli_fetch_array($r)) {
@@ -71,8 +65,8 @@
 									<td><?php echo $result["isbn"]; ?></td>
 									<td><?php echo $result["exemplares"]; ?></td>
 									<td><?php echo $result["dataRemessa"]; ?></td>
-									<td><a class="tableLink" href="editarLivro.php?id=<?php echo $result['id'] ?>">Editar</a></td>
-									<td><a class="tableLink">Excluir</a></td>
+									<td><a href="editarLivro.php?id=<?php echo $result['id'] ?>"><button class="linkBt">Editar</button></a></td>
+									<td><button class="linkBtEx" id="<?php echo $result["id"]; ?>" value="<?php echo $result["titulo"]; ?>" onclick="abrirTelaExcluir(id)">Excluir</button></td>
 								</tr>
 					<?php
 							}
@@ -80,32 +74,21 @@
 					?>
 				</table>
 
-				<table class="lista">
-					<tr>
-						<th>ID</th>
-						<th>Nome</th>
-						<th>Data de Nascimento</th>
-						<th>Descrição</th>
-					</tr>
-					<?php
-						include_once('Conexao.php');
-						$sql = 'select * from autor order by nome';					
-						$r = mysqli_query($con, $sql);
-						if ($r) {
-							while ($result = mysqli_fetch_array($r)) {
-					?>
-								<tr>
-									<td><?php echo $result["id"]; ?></td>
-									<td><?php echo $result["nome"]; ?></td>
-									<td><?php echo $result["dataNasc"]; ?></td>
-									<td><?php echo $result["descricao"]; ?></td>
-								</tr>
-					<?php
-							}
+				<script type="text/javascript">
+					function abrirTelaExcluir(id)
+					{
+						var titulo = document.getElementById(id).value;
+
+						var r = confirm('Você deseja excluir o Livro "' + titulo + '"');
+
+						if (r){
+							window.location.href = "excluir.php?id=" + id;	
 						}
-					?>
-				</table>
+					}
+				</script>
 			</div>
+
+			
 			
 		</main>
 

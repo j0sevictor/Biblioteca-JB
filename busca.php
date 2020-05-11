@@ -3,14 +3,14 @@
 
 	$livro = $_POST['palavra'];
 	
-	$sql = "SELECT titulo FROM livro WHERE titulo LIKE '%$livro%'";
+	$sql = "SELECT id, titulo FROM livro WHERE titulo LIKE '%$livro%'";
 	$r = mysqli_query($con, $sql);
 	
 	if(mysqli_num_rows($r) <= 0){
-		echo "Nenhum livro encontrado...";
+		echo "<option>Nenhum livro encontrado</option>";
 	}else{
 		while($result = mysqli_fetch_array($r)){
-			echo "<li>".$result['titulo']."</li>";
+			echo '<option value="' . $result['id'] . '">'. $result['titulo'] . '</option>';
 		}
 	}
 ?>

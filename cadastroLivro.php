@@ -14,9 +14,7 @@
 
 	$sql = "INSERT INTO livro VALUES (default, '$titulo', '$gel', '$autor', '$cdd', '$isbn', $exemp, '$data', '$capa', '$ccapa')";
 
-	if (mysqli_query($con, $sql)){
-		echo '<h1>Foi<h1>';
-	}
+	mysqli_query($con, $sql);
 
 	$targetc = "_imagens/" . $capa;
 	$targetcc = "_imagens/" . $ccapa;

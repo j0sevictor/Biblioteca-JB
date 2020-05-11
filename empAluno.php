@@ -3,24 +3,13 @@
 	$numero = $_POST["numero"];
 	$turma = $_POST["turma"];
 	$nome = $_POST["nome"];
-	$livro = $_POST["nomelivro"];
-	$dataemp = date('y-m-d');
-
-	echo $livro;
+	$livro = $_POST["livroId"];
 
 	include_once("Conexao.php");
 
-	$sql = "SELECT id FROM livro WHERE nome = '$livro'";
-	$r = mysqli_query($con, $sql);
-	if ($r) {
-		if ($result = mysqli_fetch_array($r)) {
-			$livro = $result["id"];
-		}
-	}
-
-	$sql = "INSERT INTO emprestimoaluno VALUES (default, '$dataemp', $ano, '$turma', $numero, '$nome', $livro, 'Emprestado', default)";
+	$sql = "INSERT INTO emprestimoaluno VALUES (default, NOW(), $ano, '$turma', $numero, '$nome', $livro, default, default)";
 
 	mysqli_query($con, $sql);
 
-
+	header('Location: emprestimo.php');
 ?>

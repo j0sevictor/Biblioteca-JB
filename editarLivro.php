@@ -1,3 +1,6 @@
+<?php
+	include_once('autenticador.php');
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,16 +19,7 @@
 			</div>
 		</header>	
 
-		<nav class="menu">
-			<ul id="links">
-				<a href="cadastro.php" class="linkMenu"><li>Cadastro Livro/Autor</li></a> 
-				<a href="listarLivros.php" class="linkMenu"><li>Listagem dos Livros/Autores</li></a>
-				<a href="emprestimo.php" class="linkMenu"><li>Empréstimos</li></a>
-				<a href="" class="linkMenu"><li>Devoluções</li></a>
-				<a href="" class="linkMenu"><li>Pendências de Livros</li></a>
-				<a href="" class="linkMenu"><li>Dados Gerais</li></a>
-			</ul>
-		</nav>
+		<?php include_once('menu.html'); ?>
 
 		<main class="conteudo">
 
@@ -170,11 +164,11 @@
 						</tr>
 
 						<tr>
-							<td><label class="file" for="capa">Selecionar Capa</label><input type="file" name="capa" id="capa" class="file"></td>
+							<td><label class="file" for="capa">Atualizar Capa</label><input type="file" name="capa" id="capa" class="file"></td>
 						</tr>
 
 						<tr>
-							<td><label class="file" for="contracapa">Selecionar Contracapa</label><input type="file" name="contracapa" id="contracapa" class="file"></td>
+							<td><label class="file" for="contracapa">Atualizar Contracapa</label><input type="file" name="contracapa" id="contracapa" class="file"></td>
 						</tr>
 
 						<tr>

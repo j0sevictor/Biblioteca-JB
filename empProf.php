@@ -1,21 +1,12 @@
 <?php
 	$nome = $_POST["nome"];
-	$livro = $_POST["nomelivro"];
-	$dataemp = date('y-m-d');
+	$livro = $_POST["livroId"];
 
 	include_once("Conexao.php");
 
-	$sql = "SELECT id FROM livro WHERE titulo = '$livro'";
-	$r = mysqli_query($con, $sql);
-	if ($r) {
-		if ($result = mysqli_fetch_array($r)) {
-			$livro = $result["id"];
-		}
-	}
-
-	$sql = "INSERT INTO emprestimoprof VALUES (default, '$dataemp', $nome', $livro, 'Emprestado', default)";
+	$sql = "INSERT INTO emprestimoprof VALUES (default, NOW(), '$nome', $livro, default, default)";
 
 	mysqli_query($con, $sql);
 
-	header("Location: emprestimo.php");
+	header('Location: emprestimo.php');
 ?>

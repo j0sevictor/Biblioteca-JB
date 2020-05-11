@@ -1,9 +1,13 @@
+<?php
+	include_once('autenticador.php');
+?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="_css/emprestimo.css">
 		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 		<script type="text/javascript" src="_javascript/pesquisa.js"></script>
@@ -18,20 +22,11 @@
 
 		</header>	
 
-		<nav class="menu">
-			<ul id="links">
-				<a href="cadastro.php" class="linkMenu"><li>Cadastro Livro/Autor</li></a> 
-				<a href="listarLivros.php" class="linkMenu"><li>Listagem dos Livros/Autores</li></a>
-				<a href="emprestimos.php" class="linkMenu"><li>Empréstimos</li></a>
-				<a href="" class="linkMenu"><li>Devoluções</li></a>
-				<a href="" class="linkMenu"><li>Pendências de Livros</li></a>
-				<a href="" class="linkMenu"><li>Dados Gerais</li></a>
-			</ul>
-		</nav>
+		<?php include_once('menu.html'); ?>
 
 		<main class="conteudo">
 
-			<div id="livro" class="formulario">
+			<div id="a" class="formulario">
 				<form action="empAluno.php" method="POST">
 					<h1>Empréstimos para Alunos</h1>
 					<table class="formulario">
@@ -72,9 +67,9 @@
 							
 							<td>Livro
 								<input type="text" name="livroTitulo" id="livroTitulo" class="field">
-								<ul class="resultado">
-		
-								</ul>
+								<select class="resultado" name="livroId">
+									
+								</selct>
 							</td>
 						</tr>
 
@@ -87,7 +82,7 @@
 				
 			</div>
 
-			<div id="livro" class="formulario">
+			<div id="b" class="formulario">
 				<form action="empProf.php" method="POST">
 					<h1>Empréstimos para Professores</h1>
 					<table class="formulario">
@@ -99,7 +94,10 @@
 						<tr>
 							
 							<td>Livro
-							
+								<input type="text" name="livroTitulo" id="livroTitulo2" class="field">
+								<select class="resultado2" name="livroId">
+									
+								</selct>
 							</td>
 						</tr>
 
