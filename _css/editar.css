@@ -1,6 +1,6 @@
 table.visualizar{
-
-}
-table.visualizar td{
-    border: 2px dashed #606060;
+    position: relative;
+	border: 2px dashed #606060;
+	width: 50%;
+	margin-top: 5%;
 }

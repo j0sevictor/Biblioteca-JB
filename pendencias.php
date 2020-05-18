@@ -39,23 +39,34 @@
 						while ($y <= 3){
 							echo('<h3>' . $x . '° ' . $cursos[$y] . '</h3>');
 							
-							$sql = "SELECT * FROM emprestimoaluno WHERE ano = $x, turma = '$cursos[$y]'";
+							$sql = "SELECT * FROM emprestimoaluno WHERE ano = '$x' AND turma = '$cursos[$y]' AND estado = 'Emprestado' ORDER BY numero";
 
 							$r = mysqli_query($con, $sql);
 
 							if ($r){
 
-								echo('<table class="">');
-
+								echo('<table border="1px" class="pendencias">');
+									$anterior = 100;
 									while ($result = mysqli_fetch_array($r)){
+
+										if ($anterior == $result['numero']) {
+											echo '<li>' . $result['livroid'] . '</li>';
+											continue;
+										}else if ($anterior != 100){
+											echo '</ul></td></tr>';
+										}
 				?>
-									<tr>
-										<td>Foi?</td>
-									</tr>
+										<tr>
+											<th><?php echo $result['numero']; ?></th>
+											<td><?php echo $result['nomeleitor']; ?></td>
+											<td>
+												<ul>
+													<li><?php echo $result['livroid']; ?></li>
 
 				<?php
-						
+										$anterior = $result['numero'];
 									}
+									echo '</ul></td></tr>';
 								echo('</table>');
 							}
 
@@ -65,6 +76,36 @@
 						$x++;
 					}
 				?>
+
+				<h2>Professores</h2>
+
+				<table border="1px" class="pendencias">
+					<?php
+						$sql = 'SELECT * FROM emprestimoprof';
+						$r = mysqli_query($con, $sql);
+
+						$anterior = '';
+						while ($result = mysqli_fetch_array($r)){
+							if ($anterior == $result['nomeleitor']) {
+								echo '<li>' . $result['livroid'] . '</li>';
+								continue;
+							}else if ($anterior != 100){
+								echo '</ul></td></tr>';
+							}
+					?>
+							<tr>
+								<td><?php echo $result['nomeleitor']; ?></td>
+								<td>
+									<ul>
+										<li><?php echo $result['livroid']; ?></li>
+
+					<?php
+							$anterior = $result['nomeleitor'];
+						}
+						echo '</ul></td></tr>';
+					?>
+					
+				</table>
 				
 
 			</div>

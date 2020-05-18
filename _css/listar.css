@@ -52,33 +52,23 @@ table.visualizar{
 	cursor: pointer;
 }
 
-div.pop-up{
-	position: absolute;
-	display: none;
-	background-color: green;
-	padding: 1%;
-	width: 280px;
-	color: white;
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, .5);
-	border-radius: 10px;
-}
-div.pop-up p{
-	text-align: center;
-	font-size: 16pt;
-}
-div.pop-up button{
+select.fieldPesq{
 	position: relative;
-	margin-top: 40px;
-	font-size: 14pt;
-	background-color: white;
-	border: none;
-	border-radius: 20px;
-	width: 100px;
 	outline: none;
-	cursor: pointer;
+	width: 50%;
+	border: 2px solid #606060;
+	border-radius: 7px;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-bottom: 10px;
 }
-div.pop-up button#excluir{
-	background-color: red;
-	color: white;
-	margin-right: 15px;
+select.fieldPesq:focus{
+	border-color:rgb(247, 122, 6);
+}
+img#voltar{
+	width: 40px;
+	margin-top: 10px;
+}
+img#voltar:hover{
+	transform: scale(1.1);
 }

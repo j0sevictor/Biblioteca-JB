@@ -24,6 +24,7 @@
 		<main class="conteudo">
 
 			<div id="a" class="formulario">
+				<a href="<?php echo $_SERVER['HTTP_REFERER'] ?>"><img src="_imagens/voltar.png" id="voltar"></a>
 				<h2>Dados Atuais</h2>
 				<?php
 					$id = $_GET['id'];
@@ -76,40 +77,18 @@
 							
 							<td>Gênero
 								<select name="genero" id="genero" class="field">
-									<option value="Romance">Romance</option>
-									<option value="Ficção Científica">Ficção Científica</option>
-									<option value="Clássico">Clássico</option>
-									<option value="Biografia">Biografia</option>
-									<option value="AutoBiografia">AutoBiografia</option>
-									<option value="Horro">Horror</option>
-									<option value="Poesia">Poesia</option>
-									<option value="Regionalismo">Regionalismo</option>
-									<option value="Drama">Drama</option>
-									<option value="Crônica">Crônica</option>
-									<option value="Fábula">Fábula</option>
-									<option value="Conto">Conto</option>
-									<option value="Ensaio">Ensaio</option>
-									<option value="Epopeia">Epopeia</option>
-									<option value="Fantasia">Fantasia</option>
-									<option value="Vampirismo">Vampirismo</option>
-									<option value="Suspense">Suspense</option>
-									<option value="Auto-Ajuda">Auto-Ajuda</option>
-									<option value="Trajédia">Trajédia</option>
-									<option value="Filosofia">Filosofia</option>
-									<option value="Física">Física</option>
-									<option value="Matemática">Matemática</option>
-									<option value="Sociologia">Sociologia</option>
-									<option value="HQ">HQ</option>
-									<option value="Informática">Informática</option>
-									<option value="Finanças">Finanças</option>
-									<option value="Administração">Administração</option>
-									<option value="Agropecuária">Agropecuária</option>
-									<option value="Dicionários">Dicionários</option>
-									<option value="Infantil">Infantil</option>
-									<option value="Artes">Artes</option>
-									<option value="Música">Música</option>
-									<option value="Mitologia">Mitologia</option>
-									<option value="Outro">Outro</option>
+									<option value="Indefinido">Selecione um Gênero</option>
+								<?php
+									include_once('varcod.php');
+
+									foreach ($generos as $genero){
+										if ($result['genero'] == $genero){
+											echo '<option value="' . $genero . '" selected>' . $genero . '</option>';
+										}else{
+											echo '<option value="' . $genero . '">' . $genero . '</option>';
+										}
+									}
+								?>
 								</select>
 							</td>
 						</tr>
@@ -176,7 +155,7 @@
 						</tr>
 
 					</table>
-					<input type="hidden" name="formulario" value="livro">
+					<input type="hidden" name="formulario" value="AUTOR">
 					<input type="hidden" name="id" value="<?php echo $result['id'] ?>">
 				</form>
 			</div>

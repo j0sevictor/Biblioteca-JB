@@ -1,7 +1,9 @@
 <?php
     $form = $_POST['formulario'];
 
-    if ($form == 'livro'){
+    include_once('Conexao.php');
+
+    if ($form == 'LIVRO'){
 
         $id = $_POST["id"];
 
@@ -18,8 +20,6 @@
         
         $targetc = "_imagens/" . $capa;
 	    $targetcc = "_imagens/" . $ccapa;
-
-        include_once('Conexao.php');
 
         if (empty($capa) && empty($ccapa)){
             $sql = "UPDATE livro 
@@ -51,7 +51,34 @@
 
 
         header('Location: listarLivros.php');
+    }else if ($form == 'AUTOR'){
 
+        $id = $_POST["id"];
+
+        $nome = $_POST["nomeautor"];
+        $desc = $_POST["desc"];
+        $data = $_POST["datanasc"];
+        $autmes = $_POST["autordomes"];
+        
+        if (empty($autmes)){
+            $autmes = 'false';
+        }
+        
+        if (!empty($data)){
+            $sql = "UPDATE autor
+                    SET nome = '$nome', descricao = '$desc', dataNasc = '$data', autordomes = $autmes
+                    WHERE id = $id
+                    LIMIT 1";
+        }else{
+            $sql = "UPDATE autor
+                    SET nome = '$nome', descricao = '$desc', autordomes = $autmes
+                    WHERE id = $id
+                    LIMIT 1";
+        }
+
+        mysqli_query($con, $sql);
+
+        header('Location: listarAutores.php');
         
     }
 

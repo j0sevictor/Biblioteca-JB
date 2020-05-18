@@ -1,16 +1,13 @@
 $(function(){
-	//Pesquisar os cursos sem refresh na página
 	$("#livroTitulo").keyup(function(){
 		
 		var pesquisa = $(this).val();
 		
-		//Verificar se há algo digitado
 		if(pesquisa != ''){
 			var dados = {
 				palavra : pesquisa
 			}		
 			$.post('busca.php', dados, function(retorna){
-				//Mostra dentro da ul os resultado obtidos 
 				$(".resultado").html(retorna);
 			});
 		}		
@@ -18,20 +15,55 @@ $(function(){
 });
 
 $(function(){
-	//Pesquisar os cursos sem refresh na página
 	$("#livroTitulo2").keyup(function(){
 		
 		var pesquisa = $(this).val();
 		
-		//Verificar se há algo digitado
 		if(pesquisa != ''){
 			var dados = {
 				palavra : pesquisa
 			}		
 			$.post('busca.php', dados, function(retorna){
-				//Mostra dentro da ul os resultado obtidos 
 				$(".resultado2").html(retorna);
 			});
 		}		
+	});
+});
+
+$(function(){
+	$("#btPesquisa").click(function(){
+		
+		var ano = $('#ano').val();
+		var turma = $('#turma').val();
+		var num = $('#numero').val();
+		var tip = 'ALUNO';
+		
+		var dados = {
+			serie : ano,
+			curso : turma,
+			numero : num,
+			tipo : tip
+		}		
+		$.post('buscarPendencias.php', dados, function(retorna){
+			$("#emprestimosaluno").html(retorna);
+		});
+	
+	});
+});
+
+$(function(){
+	$("#btPesquisaProf").click(function(){
+
+		var nom = $('#nomeProf').val();
+		var tip = 'PROF';
+
+		var dados = {
+			nome : nom,
+			tipo : tip
+		}		
+		$.post('buscarPendencias.php', dados, function(retorna){
+			$("#emprestimosprof").html(retorna);
+		});
+	
 	});
 });

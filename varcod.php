@@ -1,5 +1,5 @@
 <?php    
-    $cursos = ['Informática', 'Finanças', 'Agropecuária', 'Administração'];
+    $cursos = ['Administração', 'Agropecuária', 'Finanças', 'Informática'];
 
-    $generos = ['Épico', 'Lírico', 'Romântico'];
+    $generos = ['Épico', 'Lírico', 'Romântico', 'Técnico-Científico', 'Didático','Outro'];
 ?>

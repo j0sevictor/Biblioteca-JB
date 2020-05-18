@@ -25,16 +25,15 @@
 		<main class="conteudo">
 			<div id="lista">
 
-				<h1>Livros</h1>
+				<h1>Autores</h1>
 
-				
 				<form action="pesquisar.php" method="POST">
 					<select name="coluna" class="fieldPesq">
 						<option>Selecione em qual Campo será feita a busca</option>
 						<?php
 							include_once('Conexao.php');
 
-							$sql = "SELECT COLUMN_NAME AS coluna FROM information_schema.columns WHERE table_name = 'livro'";
+							$sql = "SELECT COLUMN_NAME AS coluna FROM information_schema.columns WHERE table_name = 'autor'";
 							$r = mysqli_query($con, $sql);
 
 							while ($result = mysqli_fetch_array($r)){
@@ -48,45 +47,42 @@
 						<input type="text" id="txtBusca" name="txtBusca" placeholder="Buscar..."/>
 						<input type="submit" id="btnBusca" value="Buscar">
 					</div>	
-					<input type="hidden" name="tabela" value="livro">
+					<input type="hidden" name="tabela" value="autor">
 				</form>
-				
 
 				<table class="lista">
 					<tr>
-						<th>Capa</th>
-						<th>Contracapa</th>
 						<th>ID</th>
-						<th>Título</th>
-						<th>Gênero</th>
-						<th>Autor</th>
-						<th>CDD</th>
-						<th>ISBN</th>
-						<th>Exemplares</th>
-						<th>Data da Remessa</th>	
+						<th>Nome</th>
+						<th>Descrição</th>
+						<th>Data de Nascimento</th>
+						<th>Autor do Mês</th>	
 					</tr>
 					<?php
 						include_once('Conexao.php');
-						$sql = 'select livro.capa, livro.contra, livro.id, livro.titulo, livro.genero, autor.nome as autor, livro.cdd, livro.isbn, livro.exemplares, livro.dataRemessa
-								from livro join autor
-								on livro.autor = autor.id order by livro.titulo';					
-						$r = mysqli_query($con, $sql);
+                        
+                        $sql = 'SELECT * FROM autor ORDER BY nome';					
+                        
+                        $r = mysqli_query($con, $sql);
+                        
 						if ($r) {
 							while ($result = mysqli_fetch_array($r)) {
 					?>
 								<tr>
-									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["capa"] ?>"></td>
-									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["contra"] ?>"></td>
 									<td><?php echo $result["id"]; ?></td>
-									<td><?php echo $result["titulo"]; ?></td>
-									<td><?php echo $result["genero"]; ?></td>
-									<td><?php echo $result["autor"]; ?></td>
-									<td><?php echo $result["cdd"]; ?></td>
-									<td><?php echo $result["isbn"]; ?></td>
-									<td><?php echo $result["exemplares"]; ?></td>
-									<td><?php echo $result["dataRemessa"]; ?></td>
-									<td><a href="editarLivro.php?id=<?php echo $result['id'] ?>"><button class="linkBt">Editar</button></a></td>
-									<td><button class="linkBtEx" id="<?php echo $result["id"]; ?>" value="<?php echo $result["titulo"]; ?>" onclick="abrirTelaExcluir(id)">Excluir</button></td>
+									<td><?php echo $result["nome"]; ?></td>
+									<td><?php echo $result["descricao"]; ?></td>
+                                    <td><?php echo $result["dataNasc"]; ?></td>
+                                    <td><?php 
+                                            if ($result['autordomes']) {
+                                                echo 'Sim';
+                                            }else{
+                                                echo 'Não';
+                                            }
+                                             
+                                    ?></td>
+									<td><a href="editarAutor.php?id=<?php echo $result['id'] ?>"><button class="linkBt">Editar</button></a></td>
+									<td><button class="linkBtEx" id="<?php echo $result["id"]; ?>" value="<?php echo $result["nome"]; ?>" onclick="abrirTelaExcluir(id)">Excluir</button></td>
 								</tr>
 					<?php
 							}
@@ -97,12 +93,12 @@
 				<script type="text/javascript">
 					function abrirTelaExcluir(id)
 					{
-						var titulo = document.getElementById(id).value;
+						var nome = document.getElementById(id).value;
 
-						var r = confirm('Você deseja excluir o Livro "' + titulo + '"');
+						var r = confirm('Você deseja excluir o Autor "' + nome + '"');
 
 						if (r){
-							window.location.href = "excluir.php?id=" + id + '&tipo=LIVRO';	
+							window.location.href = 'excluir.php?id=' + id + '&tipo=AUTOR';	
 						}
 					}
 				</script>

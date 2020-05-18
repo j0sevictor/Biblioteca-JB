@@ -1,5 +1,6 @@
 <?php
 	include_once('autenticador.php');
+	include_once('varcod.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@
 
 		<main class="conteudo">
 
-			<div id="a" class="formulario">
+			<div class="bloco">
 				<form action="empAluno.php" method="POST">
 					<h1>Empréstimos para Alunos</h1>
 					<table class="formulario">
@@ -45,10 +46,11 @@
 							
 							<td>Turma
 								<select name="turma" id="turma" class="field">
-									<option value="Informática">Informática</option>
-									<option value="Finanças">Finanças</option>
-									<option value="Agropecuária">Agropecuária</option>
-									<option value="Administração">Administração</option>
+									<?php
+                                        foreach ($cursos as $curso){
+                                            echo '<option value="' . $curso . '">' . $curso . '</option>';
+                                        }
+                                    ?>
 								</select>
 							</td>
 						</tr>
@@ -80,9 +82,9 @@
 					</table>
 				</form>
 				
-			</div>
-
-			<div id="b" class="formulario">
+			</div><!--
+		
+		--><div class="bloco">
 				<form action="empProf.php" method="POST">
 					<h1>Empréstimos para Professores</h1>
 					<table class="formulario">

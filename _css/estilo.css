@@ -96,17 +96,14 @@ body{
 		position: relative;
 		margin: 0;
 	}
-	div#a{
+	div#todo{
 		position: relative;
-		width: 50%;
-		display: block;
-		float: left;
+		width: 100%;
 	}
-	div#b{
+	div.bloco{
 		position: relative;
 		width: 50%;
-		display: block;
-		float: right;
+		display: inline-block;
 	}
 	table.formulario{
 		width: 50%;
@@ -169,9 +166,6 @@ body{
 	input.enter:hover{
 		background-color: rgb(247, 122, 6);
 	}
-	input.enter:focus{
-		background-color: rgb(247, 122, 6);
-	}
 	input.file{
 		display: none;
 	}
@@ -186,6 +180,7 @@ body{
 	label.file:hover{
 		background-color: rgb(247, 122, 6);
 	}
+	
 
 	
 /* Rodapé do Site*/

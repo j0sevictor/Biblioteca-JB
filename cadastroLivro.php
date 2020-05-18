@@ -12,7 +12,11 @@
 
 	include_once("Conexao.php");
 
-	$sql = "INSERT INTO livro VALUES (default, '$titulo', '$gel', '$autor', '$cdd', '$isbn', $exemp, '$data', '$capa', '$ccapa')";
+	if (!empty($data)) {
+		$sql = "INSERT INTO livro VALUES (default, '$titulo', '$gel', $autor, '$cdd', '$isbn', $exemp, '$data', '$capa', '$ccapa')";
+	}else{
+		$sql = "INSERT INTO livro VALUES (default, '$titulo', '$gel', $autor, '$cdd', '$isbn', $exemp, default, '$capa', '$ccapa')";
+	}
 
 	mysqli_query($con, $sql);
 

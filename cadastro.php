@@ -21,8 +21,35 @@
 		<?php include_once('menu.html'); ?>
 
 		<main class="conteudo">
+			<div class="bloco" class="formulario">
+				<form action="cadastroAutor.php" method="POST">
+					<h1>Autor</h1>
+					<table class="formulario">
+						<tr>							
+							<td>Nome<input type="text" name="nomeautor" id="nomeautor" class="field"></td>
+						</tr>
 
-			<div id="a" class="formulario">
+						<tr>
+							<td><i>Descrição</i><textarea id="desc" name="desc" class="field"></textarea></td>
+						</tr>
+
+						<tr>
+							<td><i>Nascimento</i><input type="date" class="field" name="datanasc" id="datanasc"></td>
+						</tr>
+						
+						<tr>
+							<td><input type="checkbox" value="true" name="autordomes">Autor do Mês</td>
+						</tr>
+
+						<tr>
+							<th><input type="submit" class="enter" value="Cadastrar"></th>
+						</tr>
+
+					</table>
+				</form>
+			</div><!--
+		
+		--><div class="bloco" class="formulario">
 				<form action="cadastroLivro.php" enctype="multipart/form-data" method="POST">
 					<h1>Cadastro de livros</h1>
 					<table class="formulario">
@@ -36,40 +63,16 @@
 							
 							<td>Gênero
 								<select name="genero" id="genero" class="field">
-									<option value="Romance">Romance</option>
-									<option value="Ficção Científica">Ficção Científica</option>
-									<option value="Clássico">Clássico</option>
-									<option value="Biografia">Biografia</option>
-									<option value="AutoBiografia">AutoBiografia</option>
-									<option value="Horro">Horror</option>
-									<option value="Poesia">Poesia</option>
-									<option value="Regionalismo">Regionalismo</option>
-									<option value="Drama">Drama</option>
-									<option value="Crônica">Crônica</option>
-									<option value="Fábula">Fábula</option>
-									<option value="Conto">Conto</option>
-									<option value="Ensaio">Ensaio</option>
-									<option value="Epopeia">Epopeia</option>
-									<option value="Fantasia">Fantasia</option>
-									<option value="Vampirismo">Vampirismo</option>
-									<option value="Suspense">Suspense</option>
-									<option value="Auto-Ajuda">Auto-Ajuda</option>
-									<option value="Trajédia">Trajédia</option>
-									<option value="Filosofia">Filosofia</option>
-									<option value="Física">Física</option>
-									<option value="Matemática">Matemática</option>
-									<option value="Sociologia">Sociologia</option>
-									<option value="HQ">HQ</option>
-									<option value="Informática">Informática</option>
-									<option value="Finanças">Finanças</option>
-									<option value="Administração">Administração</option>
-									<option value="Agropecuária">Agropecuária</option>
-									<option value="Dicionários">Dicionários</option>
-									<option value="Infantil">Infantil</option>
-									<option value="Artes">Artes</option>
-									<option value="Música">Música</option>
-									<option value="Mitologia">Mitologia</option>
-									<option value="Outro">Outro</option>
+									<option value="Indefinido">Selecione um Gênero</option>
+								<?php
+									include_once('varcod.php');
+
+									foreach ($generos as $genero){
+								?>
+										<option value="<?php echo($genero); ?>"><?php echo($genero); ?></option>
+								<?php
+									}
+								?>
 								</select>
 							</td>
 						</tr>
@@ -108,13 +111,13 @@
 
 						<tr>
 							
-							<td>ISBN<input type="text" name="isbn" id="isbn" class="field"></td>
+							<td><i>ISBN<i><input type="text" name="isbn" id="isbn" class="field"></td>
 						</tr>
 
 
 						<tr>
 							
-							<td>CDD<input type="text" name="cdd" id="cdd" class="field"></td>
+							<td><i>CDD<i><input type="text" name="cdd" id="cdd" class="field"></td>
 						</tr>
 
 						<tr>
@@ -125,7 +128,7 @@
 
 						<tr>
 							
-							<td>Data da Remessa<input type="date" class="field" name="dataR" id="dataR" ></td>
+							<td><i>Data da Remessa<i><input type="date" class="field" name="dataR" id="dataR" ></td>
 						</tr>
 
 						<tr>
@@ -144,32 +147,6 @@
 				</form>
 			</div>
 
-			<div id="b" class="formulario">
-				<form action="cadastroAutor.php" method="POST">
-					<h1>Autor</h1>
-					<table class="formulario">
-						<tr>
-							
-							<td>Nome<input type="text" name="nomeautor" id="nomeautor" class="field"></td>
-						</tr>
-
-						<tr>
-		
-							<td><i>Descrição</i><textarea id="desc" name="desc" class="field"></textarea></td>
-						</tr>
-
-						<tr>
-							
-							<td><i>Nascimento</i><input type="date" class="field" name="datanasc" id="datanasc"></td>
-						</tr>
-
-						<tr>
-							<th><input type="submit" class="enter" value="Cadastrar"></th>
-						</tr>
-
-					</table>
-				</form>
-			</div>
 		</main>
 
 		<footer class="rodape">
