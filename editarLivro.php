@@ -8,14 +8,14 @@
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="stylesheet" type="text/css" href="_css/listar.css">
-		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 	</head>
 
 	<body>
 
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.png">
+				<img src="_interface/logo.png">
 			</div>
 		</header>	
 
@@ -23,8 +23,8 @@
 
 		<main class="conteudo">
 
-			<div id="a" class="formulario">
-				<a href="<?php echo $_SERVER['HTTP_REFERER'] ?>"><img src="_imagens/voltar.png" id="voltar"></a>
+			<div class="bloco">
+				<a href="<?php echo $_SERVER['HTTP_REFERER'] ?>"><img src="_interface/voltar.png" id="voltar" title="Voltar à página anterior"></a>
 				<h2>Dados Atuais</h2>
 				<?php
 					$id = $_GET['id'];
@@ -38,8 +38,8 @@
 				?>
 				<table class="visualizar">
 					<tr>
-						<td class="livro"><img class="livro" src="_imagens/<?php echo $result["capa"] ?>"></td>
-						<td class="livro"><img class="livro" src="_imagens/<?php echo $result["contra"] ?>"></td>
+						<td class="livro"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
+						<td class="livro"><img class="livro" src="<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><?php echo $result["titulo"]; ?></td>
@@ -63,10 +63,10 @@
 						<td colspan="2">Data da Remessa - <?php echo $result["dataRemessa"]; ?></td>
 					</tr>	
 				</table>
-			</div>
-
-			<div id="b">
-			<form action="edicao.php" enctype="multipart/form-data" method="POST">
+			</div><!--
+		
+		--><div class="bloco">
+				<form action="edicao.php" enctype="multipart/form-data" method="POST">
 					<h2>Edição de Dados</h2>
 					<table class="formulario">
 						<tr>
@@ -155,7 +155,7 @@
 						</tr>
 
 					</table>
-					<input type="hidden" name="formulario" value="AUTOR">
+					<input type="hidden" name="formulario" value="LIVRO">
 					<input type="hidden" name="id" value="<?php echo $result['id'] ?>">
 				</form>
 			</div>

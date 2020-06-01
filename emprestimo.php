@@ -9,16 +9,16 @@
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="stylesheet" type="text/css" href="_css/emprestimo.css">
-		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 		<script type="text/javascript" src="_javascript/pesquisa.js"></script>
 	</head>
 
 	<body>
-
+		
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.png" width="100%">
+				<img src="_interface/logo.png" width="100%">
 			</div>
 
 		</header>	
@@ -47,8 +47,8 @@
 							<td>Turma
 								<select name="turma" id="turma" class="field">
 									<?php
-                                        foreach ($cursos as $curso){
-                                            echo '<option value="' . $curso . '">' . $curso . '</option>';
+                                        for ($i = 0; $i <= 3; $i++){
+                                            echo '<option value="' . $valores[$i] . '">' . $cursos[$i] . '</option>';
                                         }
                                     ?>
 								</select>
@@ -113,8 +113,5 @@
 
 		</main>
 
-		<footer class="rodape">
-			jn
-		</footer>
 	</body>
 </html>

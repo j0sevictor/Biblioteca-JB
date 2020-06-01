@@ -8,15 +8,14 @@
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="stylesheet" type="text/css" href="_css/listar.css">
-        <link rel="stylesheet" type="text/css" href="_css/editar.css">
-		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 	</head>
 
 	<body>
 
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.png">
+				<img src="_interface/logo.png">
 			</div>
 		</header>	
 
@@ -24,8 +23,8 @@
 
 		<main class="conteudo">
 
-			<div id="a" class="formulario">
-				<a href="<?php echo $_SERVER['HTTP_REFERER'] ?>"><img src="_imagens/voltar.png" id="voltar"></a>
+			<div class="bloco">
+				<a href="<?php echo $_SERVER['HTTP_REFERER'] ?>"><img src="_interface/voltar.png" id="voltar" title="Voltar à página anterior"></a>
 				<h2>Dados Atuais</h2>
 				<?php
 					$id = $_GET['id'];
@@ -39,7 +38,7 @@
 				?>
 				<table class="visualizar">
 					<tr>
-						<td class="livro"><img class="livro" src="_imagens/<?php echo $result["nome"] ?>"></td>
+						<td class="livro"><img class="livro" src="<?php if (!empty($result['foto'])){ echo '_imagens/' . $result["foto"]; }else{ echo '_interface/escritorOculto.png'; } ?>"></td>
 					</tr>
 
 					<tr>
@@ -47,13 +46,13 @@
 					</tr>
 
 					<tr>
-						<td><?php echo $result["descricao"]; ?></td>
+						<td>Descrição:<br><?php echo $result["descricao"]; ?></td>
 					</tr>
                     <tr>
-						<td><?php echo $result["dataNasc"]; ?></td>
+						<td>Nascimento: <?php echo $result["dataNasc"]; ?></td>
 					</tr>
                     <tr>
-                        <td>
+                        <td>Autor do Mês: 
                             <?php 
                                 if ($result['autordomes']) {
                                     echo 'Sim';
@@ -64,10 +63,10 @@
                         </td>
 					</tr>
 				</table>
-			</div>
-
-			<div id="b">
-			<form action="edicao.php" enctype="multipart/form-data" method="POST">
+			</div><!--
+		
+		--><div class="bloco">
+				<form action="edicao.php" enctype="multipart/form-data" method="POST">
 					<h2>Edição de Dados</h2>
 					<table class="formulario">
                         <tr>							
@@ -95,7 +94,7 @@
 
 
 						<tr>
-							<td><label class="file" for="capa">Atualizar Foto</label><input type="file" name="capa" id="capa" class="file"></td>
+							<td><label class="file" for="fotoAutor">Atualizar Foto</label><input type="file" name="fotoAutor" id="fotoAutor" class="file"></td>
 						</tr>
 
 						<tr>

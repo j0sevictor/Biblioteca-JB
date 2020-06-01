@@ -21,6 +21,10 @@ img.livro{
 	width: 100%;
 }
 table.visualizar{
+    position: relative;
+	border: 2px dashed #606060;
+	width: 50%;
+	margin-top: 5%;
 	text-align: center;
 }
 

@@ -1,0 +1,81 @@
+table.pendencias{
+    border: 1px solid #606060;
+    border-spacing: 0px;
+}
+table.pendencias th{
+    padding-right: 10px;
+    padding-left: 10px;
+    text-align: center;
+    border: 1px solid #606060;
+}
+table.pendencias td{
+    border: 1px solid #606060;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+td.verde{
+    border: 1px solid #606060;
+    padding: 5px;
+    background-color: #09C909;
+    color: #D6F1D6;
+}
+td.amarelo{
+    border: 1px solid #606060;
+    padding: 5px;
+    background-color: #FFF30B;
+    color: #393600;
+}
+td.vermelho{
+    border: 1px solid #606060;
+    padding: 5px;
+    background-color: #FF370B;
+    color: #FFD9D1;
+}
+td.azul{
+    border: 1px solid #606060;
+    padding: 5px;
+    background-color: #138CCD;
+    color: #D9E4DA;
+}
+
+div#scroll{
+    position: relative;
+    width: 80%;
+    margin-top: 5%;
+    margin-left: 10%;
+    display: block;
+    float: left;
+    background-color: teal;
+}
+
+a.A, a.B, a.C, a.D, a.P{
+    display: inline-block;
+    text-decoration: none;
+    width: 150px;
+    text-align: center;
+    margin: 0px;
+    padding: 5px;
+    position: relative;
+    color: black;
+}
+a.A{
+    background-color: #05BEE9;
+    color: #002027;
+}
+a.B{
+    background-color: #59C400;
+    color: #DEEED0;
+}
+a.C{
+    background-color: #FFF10B;
+    color: #474300;
+}
+a.D{
+    background-color: #025FBF;
+    color: #DFE1D7;
+}
+a.P{
+    background-color: #4A4E48;
+    color: #DDD3D2;
+    margin-top: 20px;
+}

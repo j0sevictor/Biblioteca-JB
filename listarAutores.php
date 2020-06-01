@@ -8,14 +8,14 @@
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="stylesheet" type="text/css" href="_css/listar.css">
-		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 	</head>
 
 	<body>
 
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.png" width="100%">
+				<img src="_interface/logo.png" width="100%">
 			</div>
 
 		</header>	
@@ -23,6 +23,9 @@
 		<?php include_once('menu.html'); ?>
 
 		<main class="conteudo">
+
+			<a href="#logo"><img src="_interface/subir.png" id="subir" title="Subir ao início"></a>
+
 			<div id="lista">
 
 				<h1>Autores</h1>
@@ -52,6 +55,7 @@
 
 				<table class="lista">
 					<tr>
+						<th>Foto</th>
 						<th>ID</th>
 						<th>Nome</th>
 						<th>Descrição</th>
@@ -69,6 +73,7 @@
 							while ($result = mysqli_fetch_array($r)) {
 					?>
 								<tr>
+									<td class="livro"><img class="livro" src="<?php if (!empty($result['foto'])){ echo '_imagens/' . $result["foto"]; }else{ echo '_interface/escritorOculto.png'; } ?>"></td>
 									<td><?php echo $result["id"]; ?></td>
 									<td><?php echo $result["nome"]; ?></td>
 									<td><?php echo $result["descricao"]; ?></td>
@@ -108,8 +113,5 @@
 			
 		</main>
 
-		<footer class="rodape">
-			jn
-		</footer>
 	</body>
 </html>

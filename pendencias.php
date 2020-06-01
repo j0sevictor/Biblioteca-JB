@@ -1,6 +1,51 @@
 <?php
 	include_once('autenticador.php');
 	include_once('varcod.php');
+
+	function intervalo_Data($data, $emprestado, $saberInt) {
+
+		$datav = explode(' ', $data);
+		$dataa = date('Y-m-d');
+
+		$d1 = strtotime($datav[0]);
+		$d2 = strtotime($dataa);
+
+		$dataFinal = ($d2 - $d1) /86400;
+		if (!$saberInt){
+			if ($emprestado == 1){
+				if ($dataFinal < 15){
+					return 'verde';	
+				}else if ($dataFinal >= 15 && $dataFinal < 30){
+					return 'amarelo';
+				}else{
+					return 'vermelho';
+				}
+			}else{
+				return 'azul';
+			}
+		}else{
+			return $dataFinal;
+		}
+		
+		
+	}
+
+	function mostrar_Linha($linhas_Titulos, $nome, $numero) {
+
+		$vetorSize = count($linhas_Titulos);
+
+		echo '<tr>';
+			echo '<th rowspan="' . ($vetorSize + 1) . '">' . $numero . '</th>';
+			echo '<td rowspan="' . ($vetorSize + 1) . '">' . $nome . '</td>';
+		echo '</tr>';
+		for ($i = 0; $i < $vetorSize; $i++){
+			echo '<tr>';
+				echo $linhas_Titulos[$i];
+			echo '</tr>';
+		}
+
+	}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,7 +53,8 @@
 		<meta charset="utf-8">
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
-		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<link rel="stylesheet" type="text/css" href="_css/pendencias.css">
+		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 		<script type="text/javascript" src="_javascript/funcoes.js"></script>
 	</head>
 
@@ -16,7 +62,7 @@
 
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.png" width="100%">
+				<img src="_interface/logo.png" width="100%">
 			</div>
 
 		</header>	
@@ -24,51 +70,71 @@
 		<?php include_once('menu.html'); ?>
 
 		<main class="conteudo">
+			
+			<a href="#logo"><img src="_interface/subir.png" id="subir" title="Subir ao início"></a>
+
 			<div id="lista">
 
 				<h1>Emprestimos</h1>
 				
 				<h2>Alunos</h2>
-
 				<?php
+					for ($p = 1; $p < 4; $p++){
+						for ($q = 0; $q < 4; $q++) {
+							echo '<a href="#' . $p . $valores[$q] . '" class="' . $valores[$q] . '">' . $p . '° ' . $cursos[$q] . '</a>';
+						}
+						echo '<br>';
+					}
+					echo '<a href="#P" class="P">Professores</a>';
 					include_once('Conexao.php');
-
+					
 					$x = 1;
 					while ($x <= 3){
 						$y = 0;
 						while ($y <= 3){
-							echo('<h3>' . $x . '° ' . $cursos[$y] . '</h3>');
+							echo('<h3 id="'. $x . $valores[$y] .'">' . $x . '° ' . $cursos[$y] . '</h3>');
 							
-							$sql = "SELECT * FROM emprestimoaluno WHERE ano = '$x' AND turma = '$cursos[$y]' AND estado = 'Emprestado' ORDER BY numero";
-
+							$sql = "SELECT aluno.nomeleitor, aluno.numero, livro.titulo, emprestimo.estado, emprestimo.dataemp, emprestimo.datadev
+									FROM emprestimo JOIN livro JOIN aluno
+									ON emprestimo.livroid = livro.id AND emprestimo.leitorid = aluno.id AND ano = '$x' AND turma = '$valores[$y]' AND permicao = 'ALUNO' ORDER BY numero";
 							$r = mysqli_query($con, $sql);
 
-							if ($r){
+							echo('<table class="pendencias">');
+								$anterior = 100;
+								$titulos = [];
+								$i = 0;
+								while ($result = mysqli_fetch_array($r)){
 
-								echo('<table border="1px" class="pendencias">');
-									$anterior = 100;
-									while ($result = mysqli_fetch_array($r)){
-
-										if ($anterior == $result['numero']) {
-											echo '<li>' . $result['livroid'] . '</li>';
-											continue;
-										}else if ($anterior != 100){
-											echo '</ul></td></tr>';
-										}
-				?>
-										<tr>
-											<th><?php echo $result['numero']; ?></th>
-											<td><?php echo $result['nomeleitor']; ?></td>
-											<td>
-												<ul>
-													<li><?php echo $result['livroid']; ?></li>
-
-				<?php
-										$anterior = $result['numero'];
+									if ($result['estado'] == 'Emprestado'){
+										$situ = TRUE;
+									}else{
+										$situ = FALSE;
 									}
-									echo '</ul></td></tr>';
-								echo('</table>');
-							}
+									#CONCERTA O ERRO VICTOR - Burrroooo, 
+									$estado = intervalo_Data($result['dataemp'], $situ, FALSE);
+									$numero = $result['numero'];
+									
+									if ($anterior == 100){
+										$titulos[$i] = '<td class="' . $estado . '" title="Pego à '. intervalo_Data($result['dataemp'], $situ, TRUE) .' dias">' . $result['titulo'] . '</td>';
+										$i++;
+									}else if ($anterior == $result['numero']) {
+										$titulos[$i] = '<td class="' . $estado . '" title="Pego à '. intervalo_Data($result['dataemp'], $situ, TRUE) .' dias">' . $result['titulo'] . '</td>';
+										$i++;
+										continue;
+									}else {
+										mostrar_Linha($titulos, $nome, $anterior);
+										$titulos = [];
+										$i = 0;
+										$titulos[$i] = '<td class="' . $estado . '" title="Pego à '. intervalo_Data($result['dataemp'], $situ, TRUE) .' dias">' . $result['titulo'] . '</td>';
+										$i++;
+									} 
+									$anterior = $result['numero'];
+									$nome = $result['nomeleitor'];
+								}
+								if (!empty($titulos)){
+									mostrar_Linha($titulos, $nome, $numero);
+								}
+							echo('</table>');
 
 							$y++;
 						}
@@ -77,32 +143,31 @@
 					}
 				?>
 
-				<h2>Professores</h2>
+				<h2 id="P">Professores</h2>
 
-				<table border="1px" class="pendencias">
+				<table class="pendencias">
 					<?php
-						$sql = 'SELECT * FROM emprestimoprof';
+						$sql = "SELECT professor.nomeleitor, livro.titulo, emprestimo.estado, emprestimo.dataemp, emprestimo.datadev
+								FROM emprestimo JOIN livro JOIN professor
+								ON emprestimo.livroid = livro.id AND emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' ORDER BY professor.nomeleitor, emprestimo.dataemp";
+								
 						$r = mysqli_query($con, $sql);
 
-						$anterior = '';
 						while ($result = mysqli_fetch_array($r)){
-							if ($anterior == $result['nomeleitor']) {
-								echo '<li>' . $result['livroid'] . '</li>';
-								continue;
-							}else if ($anterior != 100){
-								echo '</ul></td></tr>';
+							if ($result['estado'] == 'Emprestado'){
+								$situ = TRUE;
+							}else{
+								$situ = FALSE;
 							}
+							$estado = intervalo_Data($result['dataemp'], $situ, FALSE);
 					?>
 							<tr>
 								<td><?php echo $result['nomeleitor']; ?></td>
-								<td>
-									<ul>
-										<li><?php echo $result['livroid']; ?></li>
+								<td class="<?php echo $estado ?>" title="Pego à <?php echo intervalo_Data($result['dataemp'], $situ, TRUE); ?> dias"><?php echo $result['titulo']; ?></td>
+							</tr>
 
 					<?php
-							$anterior = $result['nomeleitor'];
 						}
-						echo '</ul></td></tr>';
 					?>
 					
 				</table>
@@ -114,8 +179,6 @@
 			
 		</main>
 
-		<footer class="rodape">
-			jn
-		</footer>
 	</body>
 </html>
+

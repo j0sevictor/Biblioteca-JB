@@ -5,3 +5,6 @@ select.resultado, select.resultado2{
     border-radius: 5px;
     outline: none;
 }
+table.pendencias{
+    border: 2px solid #606060;
+}

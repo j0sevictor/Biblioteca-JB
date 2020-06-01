@@ -8,14 +8,14 @@
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="stylesheet" type="text/css" href="_css/listar.css">
-		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 	</head>
 
 	<body>
 
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.png" width="100%">
+				<img src="_interface/logo.png" width="100%">
 			</div>
 
 		</header>	
@@ -23,6 +23,9 @@
 		<?php include_once('menu.html'); ?>
 
 		<main class="conteudo">
+
+			<a href="#logo"><img src="_interface/subir.png" id="subir" title="Subir ao início"></a>
+
 			<div id="lista">
 
 				<h1>Livros</h1>
@@ -75,8 +78,8 @@
 							while ($result = mysqli_fetch_array($r)) {
 					?>
 								<tr>
-									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["capa"] ?>"></td>
-									<td class="livro"><img class="livro" src="_imagens/<?php echo $result["contra"] ?>"></td>
+									<td class="livro"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
+									<td class="livro"><img class="livro" src="<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
 									<td><?php echo $result["id"]; ?></td>
 									<td><?php echo $result["titulo"]; ?></td>
 									<td><?php echo $result["genero"]; ?></td>
@@ -112,8 +115,5 @@
 			
 		</main>
 
-		<footer class="rodape">
-			jn
-		</footer>
 	</body>
 </html>
