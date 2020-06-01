@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="stylesheet" type="text/css" href="_css/emprestimo.css">
 		<link rel="stylesheet" type="text/css" href="_css/listar.css">
-		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 		<script type="text/javascript" src="_javascript/pesquisa.js"></script>
 	</head>
@@ -19,7 +19,7 @@
 
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.png" width="100%">
+				<img src="_interface/logo.png" width="100%">
 			</div>
 
 		</header>	
@@ -48,10 +48,10 @@
 						<td>Turma
 							<select name="turma" id="turma" class="field">
 								<?php
-									foreach ($cursos as $curso){
-										echo '<option value="' . $curso . '">' . $curso . '</option>';
+									for ($i = 0; $i <= 3; $i++){
+										echo '<option value="' . $valores[$i] . '">' . $cursos[$i] . '</option>';
 									}
-								?>	
+								?>
 							</select>
 						</td>
 					</tr>
@@ -59,7 +59,7 @@
 
 					<tr>
 						
-						<td>Número<input type="number" name="numero" id="numero" class="field" value="{{old('numero')}}"></td>
+						<td>Número<input type="number" name="numero" id="numero" class="field"></td>
 					</tr>
 
 					<tr>
@@ -84,7 +84,7 @@
 						var r = confirm('Você deseja Efetuar a Devolução de "' + titulo + '" para ' + nome);
 
 						if (r){
-							window.location.href = "devolver.php?id=" + id + '&tipo=ALUNO';	
+							window.location.href = "devolver.php?id=" + id;	
 						}
 					}
 				</script>
@@ -96,11 +96,26 @@
 					<h1>Devolução para Professores</h1>
 					<table class="formulario">
 						<tr>
-							<?php
-							
-							
-							?>
-							<td>Nome<input type="text" name="nomeProf" id="nomeProf" class="field"></td>
+							<td>Nome
+								<select name="nomeProf" id="nomeProf" class="field">
+									<?php
+										include_once('Conexao.php');
+										$sql = "SELECT professor.nomeleitor 
+												FROM professor JOIN emprestimo 
+												ON professor.id = emprestimo.leitorid AND emprestimo.estado = 'Emprestado' AND emprestimo.permicao = 'PROFESSOR' ORDER BY nomeleitor";
+
+										$r = mysqli_query($con, $sql);
+
+										if ($r) {
+											while ($result = mysqli_fetch_array($r)) {
+									?>	
+												<option value="<?php echo $result['nomeleitor'] ?>"><?php echo $result['nomeleitor'] ?></option>	
+									<?php
+											}
+										}
+									?>
+								</select>
+							</td>
 						</tr>
 
 						<tr>
@@ -126,7 +141,7 @@
 						var r = confirm('Você deseja Efetuar a Devolução de "' + titulo + '" para ' + nome);
 
 						if (r){
-							window.location.href = 'devolver.php?id=' + id + '&tipo=PROF';	
+							window.location.href = 'devolver.php?id=' + id;	
 						}
 					}
 				</script>
@@ -136,8 +151,5 @@
 
 		</main>
 
-		<footer class="rodape">
-			jn
-		</footer>
 	</body>
 </html>

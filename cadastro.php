@@ -7,14 +7,14 @@
 		<meta charset="utf-8">
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
-		<link rel="shortcut icon" type="image/x-png" href="_imagens/logo.png">
+		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 	</head>
 
 	<body>
 
 		<header class="cabecalho">
 			<div id="logo">
-				<img src="_imagens/logo.png">
+				<img src="_interface/logo.png">
 			</div>
 		</header>	
 
@@ -22,7 +22,7 @@
 
 		<main class="conteudo">
 			<div class="bloco" class="formulario">
-				<form action="cadastroAutor.php" method="POST">
+				<form action="cadastroAutor.php" enctype="multipart/form-data" method="POST">
 					<h1>Autor</h1>
 					<table class="formulario">
 						<tr>							
@@ -38,7 +38,11 @@
 						</tr>
 						
 						<tr>
-							<td><input type="checkbox" value="true" name="autordomes">Autor do Mês</td>
+							<td><input type="checkbox" value="true" name="autordomes" id="autordomes" OnChange="pegarFoto()"><label for="autordomes">Autor do Mês</label></td>
+						</tr>
+
+						<tr>
+							<td><label class="file" for="fotoAutor" id="foto">Selecionar Foto do Autor</label><input type="file" name="fotoAutor" id="fotoAutor" class="file"></td>
 						</tr>
 
 						<tr>
@@ -122,7 +126,7 @@
 
 						<tr>
 							
-							<td>Exemplares<input type="number" name="exemp" id="exemp" class="field"></td>
+							<td>Exemplares<input type="number" name="exemp" id="exemp" class="field" value="0"></td>
 						</tr>
 
 
@@ -149,8 +153,5 @@
 
 		</main>
 
-		<footer class="rodape">
-			jn
-		</footer>
 	</body>
 </html>
