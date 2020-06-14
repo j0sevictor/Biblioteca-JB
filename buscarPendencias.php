@@ -7,28 +7,24 @@
         $ano = $_POST['serie'];
         $turma = $_POST['curso'];
         $num = $_POST['numero'];
-        
-        echo $turma;
 
-        $sql = "SELECT nomeleitor, livroid, dataemp, id FROM emprestimoaluno WHERE ano = '$ano' AND turma = '$turma' AND numero = $num AND estado = 'Emprestado'";
+        $sql = "SELECT aluno.nomeleitor, emprestimo.livroid, emprestimo.dataemp, emprestimo.id, livro.titulo, livro.capa
+                FROM emprestimo JOIN aluno JOIN livro
+                ON emprestimo.leitorid = aluno.id AND emprestimo.livroid = livro.id AND ano = '$ano' AND turma = '$turma' AND numero = $num AND estado = 'Emprestado' AND permicao = 'ALUNO'";
         $r = mysqli_query($con, $sql);
 
-        $x = TRUE;
+        $x =TRUE;
 
         while ($result = mysqli_fetch_array($r)){
             if ($x) {
                 echo '<h1>Pendências de Livros Para <span id="nomeleitor">"' . $result['nomeleitor'] . '"</span></h1>';
                 $x = FALSE;            
             }
-            $sql = 'SELECT titulo, capa FROM livro WHERE id = ' . $result['livroid'];
-            $r2 = mysqli_query($con, $sql);
-
-            if ($result2 = mysqli_fetch_array($r2)){    
 ?>
                 <table class="lista">
                     <tr>
-                        <td class="livro"><img src="_imagens/<?php echo $result2['capa']; ?>" class="livro"></td>
-                        <td id="<?php echo 'titulo' . $result['id'] ?>"><?php echo $result2['titulo']; ?></td>
+                    <td class="livro"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
+                        <td id="<?php echo 'titulo' . $result['id'] ?>"><?php echo $result['titulo']; ?></td>
                     </tr>
 
                     <tr>
@@ -37,31 +33,32 @@
                     </tr>
                 </table>
 <?php
-            }
+        }
+        if ($x) {
+            echo "<h2>Nenhuma pendência foi achada para o número '$num' da turma '$turma'</h2>";
         }
     }else if ($tipo == 'PROF'){
         
         $nome = $_POST['nome'];
 
-        $sql = "SELECT nomeleitor, livroid, dataemp, id FROM emprestimoprof WHERE nomeleitor = '$nome' AND estado = 'Emprestado'";
+        $sql = "SELECT professor.nomeleitor, emprestimo.livroid, emprestimo.dataemp, emprestimo.id, livro.titulo, livro.capa
+                FROM emprestimo JOIN professor JOIN livro
+                ON emprestimo.leitorid = professor.id AND emprestimo.livroid = livro.id AND nomeleitor = '$nome' AND estado = 'Emprestado' AND permicao = 'PROFESSOR'";
         $r = mysqli_query($con, $sql);
 
-        $x = true;
+        $x = TRUE;
 
         while ($result = mysqli_fetch_array($r)){
             if ($x) {
                 echo '<h1>Pendências de Livros Para <span id="nomeleitorP">"' . $result['nomeleitor'] . '"</span></h1>';
-                $x = false;            
+                $x = FALSE;            
             }
-            $sql = 'SELECT titulo, capa FROM livro WHERE id = ' . $result['livroid'];
-            $r2 = mysqli_query($con, $sql);
 
-            if ($result2 = mysqli_fetch_array($r2)){ 
 ?>
                 <table class="lista">
                     <tr>
-                        <td class="livro"><img src="_imagens/<?php echo $result2['capa']; ?>" class="livro"></td>
-                        <td id="<?php echo 'tituloP' . $result['id'] ?>"><?php echo $result2['titulo']; ?></td>
+                        <td class="livro"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
+                        <td id="<?php echo 'tituloP' . $result['id'] ?>"><?php echo $result['titulo']; ?></td>
                     </tr>
 
                     <tr>
@@ -70,7 +67,6 @@
                     </tr>
                 </table>
 <?php
-            }
         }
     }
 
