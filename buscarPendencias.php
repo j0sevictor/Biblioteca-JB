@@ -7,6 +7,8 @@
         $ano = $_POST['serie'];
         $turma = $_POST['curso'];
         $num = $_POST['numero'];
+        
+        echo $turma;
 
         $sql = "SELECT nomeleitor, livroid, dataemp, id FROM emprestimoaluno WHERE ano = '$ano' AND turma = '$turma' AND numero = $num AND estado = 'Emprestado'";
         $r = mysqli_query($con, $sql);
