@@ -13,12 +13,12 @@
         $sql = "SELECT nomeleitor, livroid, dataemp, id FROM emprestimoaluno WHERE ano = '$ano' AND turma = '$turma' AND numero = $num AND estado = 'Emprestado'";
         $r = mysqli_query($con, $sql);
 
-        $x = true;
+        $x = TRUE;
 
         while ($result = mysqli_fetch_array($r)){
             if ($x) {
                 echo '<h1>Pendências de Livros Para <span id="nomeleitor">"' . $result['nomeleitor'] . '"</span></h1>';
-                $x = false;            
+                $x = FALSE;            
             }
             $sql = 'SELECT titulo, capa FROM livro WHERE id = ' . $result['livroid'];
             $r2 = mysqli_query($con, $sql);
