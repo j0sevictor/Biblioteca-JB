@@ -57,7 +57,13 @@
                                 $palavras_chave = explode(' ', $txt);
 
                                 if (!empty($txt)){
-                                    $sql = "SELECT * FROM $tabela WHERE $coluna LIKE '%$txt%'";
+                                    if ($coluna == 'autor') {
+                                        $sql = "SELECT livro.capa, livro.contra, livro.id, livro.titulo, livro.cdd, livro.isbn, autor.nome AS autor, livro.dataRemessa, livro.exemplares, livro.genero 
+                                                FROM $tabela JOIN autor
+                                                ON livro.autor = autor.id AND nome LIKE '%$txt%'";
+                                    }else{
+                                        $sql = "SELECT * FROM $tabela WHERE $coluna LIKE '%$txt%'";
+                                    }
                                     $r = mysqli_query($con, $sql);
                                 } else if ($coluna == 'dataRemessa'){
                                     $sql = "SELECT * FROM $tabela WHERE $coluna IS NULL";

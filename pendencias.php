@@ -30,12 +30,12 @@
 		
 	}
 
-	function mostrar_Linha($linhas_Titulos, $nome, $numero) {
+	function mostrar_Linha($linhas_Titulos, $nome, $alunoid, $numero) {
 
 		$vetorSize = count($linhas_Titulos);
 
 		echo '<tr>';
-			echo '<th rowspan="' . ($vetorSize + 1) . '">' . $numero . '</th>';
+			echo '<th rowspan="' . ($vetorSize + 1) . '"><a class="emplink" href="editarAP.php?id=' . $alunoid . '&tipo=1">' . $numero . '</a></th>';
 			echo '<td rowspan="' . ($vetorSize + 1) . '">' . $nome . '</td>';
 		echo '</tr>';
 		for ($i = 0; $i < $vetorSize; $i++){
@@ -94,7 +94,7 @@
 						while ($y <= 3){
 							echo('<h3 id="'. $x . $valores[$y] .'">' . $x . '° ' . $cursos[$y] . '</h3>');
 							
-							$sql = "SELECT aluno.nomeleitor, aluno.numero, livro.titulo, emprestimo.estado, emprestimo.dataemp, emprestimo.datadev
+							$sql = "SELECT aluno.nomeleitor, aluno.numero, livro.titulo, aluno.id AS alunoid, emprestimo.estado, emprestimo.dataemp, emprestimo.datadev, emprestimo.id AS empid
 									FROM emprestimo JOIN livro JOIN aluno
 									ON emprestimo.livroid = livro.id AND emprestimo.leitorid = aluno.id AND ano = '$x' AND turma = '$valores[$y]' AND permicao = 'ALUNO' ORDER BY numero";
 							$r = mysqli_query($con, $sql);
@@ -113,26 +113,30 @@
 									#CONCERTA O ERRO VICTOR - Burrroooo, 
 									$estado = intervalo_Data($result['dataemp'], $situ, FALSE);
 									$numero = $result['numero'];
+
+									$linha = '<td class="' . $estado . '" title="Pego à '. intervalo_Data($result['dataemp'], $situ, TRUE) . ' dias"><a class="emplink" href="editarEmprestimo.php?id=' . $result['empid'] . '&tipo=1">' . $result['titulo'] . '</a></td>';
 									
 									if ($anterior == 100){
-										$titulos[$i] = '<td class="' . $estado . '" title="Pego à '. intervalo_Data($result['dataemp'], $situ, TRUE) .' dias">' . $result['titulo'] . '</td>';
+										$titulos[$i] = $linha;
 										$i++;
 									}else if ($anterior == $result['numero']) {
-										$titulos[$i] = '<td class="' . $estado . '" title="Pego à '. intervalo_Data($result['dataemp'], $situ, TRUE) .' dias">' . $result['titulo'] . '</td>';
+										$titulos[$i] = $linha;
 										$i++;
 										continue;
 									}else {
-										mostrar_Linha($titulos, $nome, $anterior);
+										mostrar_Linha($titulos, $nome, $alunoid, $anterior);
 										$titulos = [];
 										$i = 0;
-										$titulos[$i] = '<td class="' . $estado . '" title="Pego à '. intervalo_Data($result['dataemp'], $situ, TRUE) .' dias">' . $result['titulo'] . '</td>';
+										$titulos[$i] = $linha;
 										$i++;
 									} 
+
 									$anterior = $result['numero'];
 									$nome = $result['nomeleitor'];
+									$alunoid = $result['alunoid'];
 								}
 								if (!empty($titulos)){
-									mostrar_Linha($titulos, $nome, $numero);
+									mostrar_Linha($titulos, $nome, $alunoid, $anterior);
 								}
 							echo('</table>');
 
@@ -147,7 +151,7 @@
 
 				<table class="pendencias">
 					<?php
-						$sql = "SELECT professor.nomeleitor, livro.titulo, emprestimo.estado, emprestimo.dataemp, emprestimo.datadev
+						$sql = "SELECT professor.nomeleitor, livro.titulo, emprestimo.estado, emprestimo.dataemp, emprestimo.datadev, professor.id AS pid, emprestimo.id AS empid
 								FROM emprestimo JOIN livro JOIN professor
 								ON emprestimo.livroid = livro.id AND emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' ORDER BY professor.nomeleitor, emprestimo.dataemp";
 								
@@ -162,8 +166,8 @@
 							$estado = intervalo_Data($result['dataemp'], $situ, FALSE);
 					?>
 							<tr>
-								<td><?php echo $result['nomeleitor']; ?></td>
-								<td class="<?php echo $estado ?>" title="Pego à <?php echo intervalo_Data($result['dataemp'], $situ, TRUE); ?> dias"><?php echo $result['titulo']; ?></td>
+								<td><a class="emplink" href="editarAP.php?id=<?php echo $result['pid']?>&tipo=0"><?php echo $result['nomeleitor']; ?></a></td>
+								<td class="<?php echo $estado ?>" title="Pego à <?php echo intervalo_Data($result['dataemp'], $situ, TRUE); ?> dias"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid'] ?>&tipo=0"><?php echo $result['titulo']; ?></a></td>
 							</tr>
 
 					<?php

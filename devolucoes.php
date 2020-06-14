@@ -30,14 +30,39 @@
 			<div class="bloco">			
 				<h1>Devolução para Alunos</h1>
 				<table class="formulario">
+				<?php
+					include_once('Conexao.php');
+					if (isset($_GET['tipo'])) {
+						if ($_GET['tipo'] == 'ALUNO') {
+							$get = TRUE;
+	
+							$id = $_GET['leitorid'];
+	
+							$sql = "SELECT ano, turma, numero FROM aluno WHERE id = $id";
+							$result = mysqli_fetch_array(mysqli_query($con, $sql));
+						}else{
+							$get = FALSE;
+						}
+					}else{
+						$get = FALSE;
+					}
+				?>
 					<tr>
 						
 						<td>Ano
 							<select name="ano" id="ano" class="field">
 								<?php
-								$anos = ['1', '2', '3'];
+									$anos = ['1', '2', '3'];
 									foreach ($anos as $ano){
-										echo '<option value="' . $ano . '">' . $ano . '°' . '</option>';
+										if ($get) {
+											if ($result['ano'] == $ano) {
+												echo '<option value="' . $ano . '" selected>' . $ano . '°' . '</option>';
+											}else{
+												echo '<option value="' . $ano . '">' . $ano . '°' . '</option>';
+											}
+										}else{
+											echo '<option value="' . $ano . '">' . $ano . '°' . '</option>';
+										}
 									}
 								?>
 							</select></td>
@@ -49,7 +74,15 @@
 							<select name="turma" id="turma" class="field">
 								<?php
 									for ($i = 0; $i <= 3; $i++){
-										echo '<option value="' . $valores[$i] . '">' . $cursos[$i] . '</option>';
+										if ($get) {
+											if ($result['turma'] == $valores[$i]) {
+												echo '<option value="' . $valores[$i] . '" selected>' . $cursos[$i] . '</option>';
+											}else{
+												echo '<option value="' . $valores[$i] . '">' . $cursos[$i] . '</option>';
+											}
+										}else{
+											echo '<option value="' . $valores[$i] . '">' . $cursos[$i] . '</option>';
+										}
 									}
 								?>
 							</select>
@@ -59,7 +92,7 @@
 
 					<tr>
 						
-						<td>Número<input type="number" name="numero" id="numero" class="field"></td>
+						<td>Número<input type="number" name="numero" id="numero" class="field" value='<?php if ($get){ echo $result['numero']; }else { echo '1'; } ?>'></td>
 					</tr>
 
 					<tr>
@@ -95,11 +128,27 @@
 		
 					<h1>Devolução para Professores</h1>
 					<table class="formulario">
+					<?php
+						if (isset($_GET['tipo'])) {
+							if ($_GET['tipo'] == 'PROFESSOR') {
+								$get2 = TRUE;
+		
+								$id = $_GET['leitorid'];
+		
+								$sql = "SELECT nomeleitor FROM professor WHERE id = $id";
+								$result2 = mysqli_fetch_array(mysqli_query($con, $sql));
+							}else{
+								$get2 = FALSE;
+							}
+						}else{
+							$get2 = FALSE;
+						}
+					?>
 						<tr>
 							<td>Nome
 								<select name="nomeProf" id="nomeProf" class="field">
 									<?php
-										include_once('Conexao.php');
+										
 										$sql = "SELECT professor.nomeleitor 
 												FROM professor JOIN emprestimo 
 												ON professor.id = emprestimo.leitorid AND emprestimo.estado = 'Emprestado' AND emprestimo.permicao = 'PROFESSOR' ORDER BY nomeleitor";
@@ -108,9 +157,15 @@
 
 										if ($r) {
 											while ($result = mysqli_fetch_array($r)) {
-									?>	
-												<option value="<?php echo $result['nomeleitor'] ?>"><?php echo $result['nomeleitor'] ?></option>	
-									<?php
+												if ($get2){
+													if ($result2['nomeleitor'] == $result['nomeleitor']) {
+														echo '<option value="' . $result['nomeleitor'] . '" selected>' . $result['nomeleitor'] . '</option>';
+													}else {
+														echo '<option value="' . $result['nomeleitor'] . '">' . $result['nomeleitor'] . '</option>';
+													}													
+												}else {
+													echo '<option value="' . $result['nomeleitor'] . '">' . $result['nomeleitor'] . '</option>';
+												}												
 											}
 										}
 									?>

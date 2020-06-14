@@ -68,18 +68,24 @@ body{
 		margin-top: 5%;
 	}
 	ul#links li{
-		border: 1px solid #606060;
+	
 		text-align: center;
 		padding-top: 5%;
 		padding-bottom: 5%;
+		background-color: #2F362E;
+		color: #949993;
 	}
 	a.linkMenu{
 		text-decoration: none;
-		color: black;
 	}
-	a.linkMenu:hover{
-		color: white;
-		text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+	a.emplink{
+		text-decoration: none;
+		color: inherit;
+	}
+	ul#links li:hover{
+		transition: .2s;
+		color: rgb(224, 211, 211);
+		background-color: rgb(99, 104, 99);
 	}
 	button.linkBtEx{
 		background-color: tomato;
@@ -96,18 +102,23 @@ body{
 
 /* Conteudo e Formulários */
 
+	main.conteudo{
+		position: relative;
+		width: 80%;
+		display: block;
+		float: right;
+		padding-bottom: 5%;
+	}
 	img#subir{
 		position: fixed;
 		left: 1%;
 		bottom: 1%;
-		width: 4%;
+		width: 40px;
+		transition: .2s;
 	}
-	main.conteudo{
-		position: relative;
-		width: 75%;
-		display: block;
-		float: right;
-		padding-bottom: 5%;
+	img#subir:hover{
+		transition: .2s;
+		transform: scale(1.2);
 	}
 	form{
 		position: relative;
@@ -174,18 +185,22 @@ body{
 	input.enter{
 		position: relative;
 		outline: none;
-		border: 5px solid #202020;
+		border: 3px solid #202020;
 		border-radius: 10px;
 		width: 80%;
 		padding-top: 2.5%;
 		padding-bottom: 2.5%;
-		font-weight: bold;
-		font-size: 1;
+		font-size: 1.1vw;
 		color: aliceblue;
 		background-color: green;
 		cursor: pointer;
+		transition: .2s;
 	}
 	input.enter:hover{
+		transition: .2s;
+		background-color: rgb(247, 122, 6);
+	}
+	input.enter:focus{
 		background-color: rgb(247, 122, 6);
 	}
 	input.file{
@@ -201,9 +216,10 @@ body{
 		border-radius: 5px;
 		box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
 		text-align: center;
+		transition: .2s;
 	}
 	label.file:hover{
-		transition: .1s;
+		transition: .2s;
 		background-color: rgb(247, 122, 6);
 	}
 	

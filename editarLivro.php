@@ -30,7 +30,7 @@
 					$id = $_GET['id'];
 
 					include_once('Conexao.php');
-					$sql = "select livro.capa, livro.contra, livro.id, livro.titulo, livro.genero, autor.nome as autor, livro.cdd, livro.isbn, livro.exemplares, livro.dataRemessa
+					$sql = "select livro.capa, livro.contra, livro.id, livro.titulo, livro.genero, autor.nome as autor, autor.id AS autorid, livro.cdd, livro.isbn, livro.exemplares, livro.dataRemessa
 							from livro join autor
 							on livro.autor = autor.id where livro.id = $id order by livro.titulo";					
 					$r = mysqli_query($con, $sql);
@@ -41,26 +41,40 @@
 						<td class="livro"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
 						<td class="livro"><img class="livro" src="<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
 					</tr>
+
 					<tr>
-						<td colspan="2"><?php echo $result["titulo"]; ?></td>
+						<td class="Y">Título:</td>
+						<td class="X" colspan="2"><?php echo $result["titulo"]; ?></td>
 					</tr>
+
 					<tr>
-						<td colspan="2"><?php echo $result["genero"]; ?></td>
+						<td class="Y">Gênero:</td>
+						<td class="X" colspan="2"><?php echo $result["genero"]; ?></td>
 					</tr>
+
 					<tr>
-						<td colspan="2"><?php echo $result["autor"]; ?></td>
+						<td class="Y">Autor:</td>
+						<td class="XL" colspan="2"><a class="emplink" href="editarAutor.php?id=<?php echo $result['autorid'] ?>"><?php echo $result["autor"]; ?></a></td>
 					</tr>
+
 					<tr>
-						<td colspan="2">ISBN - <?php echo $result["isbn"]; ?></td>
+						<td class="Y">ISBN:</td>
+						<td class="X" colspan="2">ISBN<?php echo $result["isbn"]; ?></td>
 					</tr>
+
 					<tr>
-						<td colspan="2">CDD - <?php echo $result["cdd"]; ?></td>
+						<td class="Y">CDD:</td>
+						<td class="X" colspan="2"><?php echo $result["cdd"]; ?></td>
 					</tr>
+
 					<tr>
-						<td colspan="2">Quantidade - <?php echo $result["exemplares"]; ?></td>
+						<td class="Y">N° de exemplares:</td>
+						<td class="X" colspan="2"><?php echo $result["exemplares"]; ?></td>
 					</tr>
+
 					<tr>
-						<td colspan="2">Data da Remessa - <?php echo $result["dataRemessa"]; ?></td>
+						<td class="Y">Data da Remessa:</td>
+						<td class="X" colspan="2"><?php echo $result["dataRemessa"]; ?></td>
 					</tr>	
 				</table>
 			</div><!--
@@ -98,7 +112,6 @@
 							<td>Autor
 								<select name="nomeautor" id="nomeautor" class="field">
 									<?php
-										include_once('Conexao.php');
 										$sql = 'SELECT id, nome FROM autor ORDER BY nome';
 
 										$r = mysqli_query($con, $sql);
@@ -159,6 +172,59 @@
 					<input type="hidden" name="id" value="<?php echo $result['id'] ?>">
 				</form>
 			</div>
+
+			<div class="duploB">
+				<h1>Está emprestado para:</h1>
+				
+				<table class="lista">
+					<tr>
+						<th>Número</th>
+						<th>Nome</th>
+						<th>Ano</th>
+						<th>Turma</th>
+						<th>Data e hora do Emprestimo</th>
+					</tr>
+					<?php
+						$sql = "SELECT aluno.nomeleitor, aluno.numero, aluno.ano, aluno.turma, emprestimo.dataemp, aluno.id AS alunoid, emprestimo.id AS empid
+								FROM emprestimo JOIN aluno
+								ON emprestimo.leitorid = aluno.id AND permicao = 'ALUNO' AND emprestimo.livroid = $id";
+						$r = mysqli_query($con, $sql);
+						
+						$x = TRUE;
+						while($result = mysqli_fetch_array($r)){
+							if ($x){
+					?>
+							<tr>
+								<td class="XL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
+								<td class="X"><?php echo $result['nomeleitor']; ?></td>
+								<td class="X"><?php echo $result['ano']; ?>°</td>
+								<td class="X"><?php echo $result['turma']; ?></td>
+								<td class="XL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1"><?php echo $result['dataemp']; ?></a></td>
+							</tr>
+					<?php 
+							}else{
+					?>
+								<tr>
+									<td class="YL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
+									<td class="Y"><?php echo $result['nomeleitor']; ?></td>
+									<td class="Y"><?php echo $result['ano']; ?>°</td>
+									<td class="Y"><?php echo $result['turma']; ?></td>
+									<td class="YL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1"><?php echo $result['dataemp']; ?></a></td>
+								</tr>
+					<?php 
+							}
+							if ($x) {
+								$x = FALSE;
+							}else{
+								$x = TRUE;
+							}
+						}
+					
+					?>
+
+
+				</table>
+			<div>
 
 		</main>
 

@@ -60,7 +60,9 @@
 						<th>Nome</th>
 						<th>Descrição</th>
 						<th>Data de Nascimento</th>
-						<th>Autor do Mês</th>	
+						<th>Autor do Mês</th>
+						<th></th>
+						<th></th>	
 					</tr>
 					<?php
 						include_once('Conexao.php');
@@ -70,26 +72,56 @@
                         $r = mysqli_query($con, $sql);
                         
 						if ($r) {
+							$x = TRUE;
 							while ($result = mysqli_fetch_array($r)) {
+								if ($x){
 					?>
-								<tr>
-									<td class="livro"><img class="livro" src="<?php if (!empty($result['foto'])){ echo '_imagens/' . $result["foto"]; }else{ echo '_interface/escritorOculto.png'; } ?>"></td>
-									<td><?php echo $result["id"]; ?></td>
-									<td><?php echo $result["nome"]; ?></td>
-									<td><?php echo $result["descricao"]; ?></td>
-                                    <td><?php echo $result["dataNasc"]; ?></td>
-                                    <td><?php 
-                                            if ($result['autordomes']) {
-                                                echo 'Sim';
-                                            }else{
-                                                echo 'Não';
-                                            }
-                                             
-                                    ?></td>
-									<td><a href="editarAutor.php?id=<?php echo $result['id'] ?>"><button class="linkBt">Editar</button></a></td>
-									<td><button class="linkBtEx" id="<?php echo $result["id"]; ?>" value="<?php echo $result["nome"]; ?>" onclick="abrirTelaExcluir(id)">Excluir</button></td>
-								</tr>
+									<tr>
+										<td class="livro"><img class="livro" src="<?php if (!empty($result['foto'])){ echo '_imagens/' . $result["foto"]; }else{ echo '_interface/escritorOculto.png'; } ?>"></td>
+										<td class="X"><?php echo $result["id"]; ?></td>
+										<td class="X"><?php echo $result["nome"]; ?></td>
+										<td class="X"><?php echo $result["descricao"]; ?></td>
+										<td class="X"><?php echo $result["dataNasc"]; ?></td>
+										<td class="X"><?php 
+												if ($result['autordomes']) {
+													echo 'Sim';
+												}else{
+													echo 'Não';
+												}
+												
+										?></td>
+										<td class="X"><a href="editarAutor.php?id=<?php echo $result['id'] ?>"><button class="linkBt">Editar</button></a></td>
+										<td class="X"><button class="linkBtEx" id="<?php echo $result["id"]; ?>" value="<?php echo $result["nome"]; ?>" onclick="abrirTelaExcluir(id)">Excluir</button></td>
+									</tr>
 					<?php
+								}else{
+					?>
+									<tr>
+										<td class="livro"><img class="livro" src="<?php if (!empty($result['foto'])){ echo '_imagens/' . $result["foto"]; }else{ echo '_interface/escritorOculto.png'; } ?>"></td>
+										<td class="Y"><?php echo $result["id"]; ?></td>
+										<td class="Y"><?php echo $result["nome"]; ?></td>
+										<td class="Y"><?php echo $result["descricao"]; ?></td>
+										<td class="Y"><?php echo $result["dataNasc"]; ?></td>
+										<td class="Y"><?php 
+												if ($result['autordomes']) {
+													echo 'Sim';
+												}else{
+													echo 'Não';
+												}
+												 
+										?></td>
+										<td class="Y"><a href="editarAutor.php?id=<?php echo $result['id'] ?>"><button class="linkBt">Editar</button></a></td>
+										<td class="Y"><button class="linkBtEx" id="<?php echo $result["id"]; ?>" value="<?php echo $result["nome"]; ?>" onclick="abrirTelaExcluir(id)">Excluir</button></td>
+									</tr>
+					<?php
+
+								}
+
+								if ($x) {
+									$x = FALSE;
+								}else{
+									$x = TRUE;
+								}
 							}
 						}
 					?>

@@ -38,21 +38,27 @@
 				?>
 				<table class="visualizar">
 					<tr>
-						<td class="livro"><img class="livro" src="<?php if (!empty($result['foto'])){ echo '_imagens/' . $result["foto"]; }else{ echo '_interface/escritorOculto.png'; } ?>"></td>
+						<td class="foto" colspan="2"><img class="foto" src="<?php if (!empty($result['foto'])){ echo '_imagens/' . $result["foto"]; }else{ echo '_interface/escritorOculto.png'; } ?>"></td>
 					</tr>
 
 					<tr>
-						<td><?php echo $result["nome"]; ?></td>
+						<td class="Y">Nome:</td>
+						<td class="X"><?php echo $result["nome"]; ?></td>
 					</tr>
 
 					<tr>
-						<td>Descrição:<br><?php echo $result["descricao"]; ?></td>
+						<td class="Y">Descrição:</td>
+						<td class="X"><?php echo $result["descricao"]; ?></td>
 					</tr>
+
                     <tr>
-						<td>Nascimento: <?php echo $result["dataNasc"]; ?></td>
+						<td class="Y">Nascimento:</td>
+						<td class="X"><?php echo $result["dataNasc"]; ?></td>
 					</tr>
+
                     <tr>
-                        <td>Autor do Mês: 
+						<td class="Y">Autor do mês:</td>
+                        <td class="X"> 
                             <?php 
                                 if ($result['autordomes']) {
                                     echo 'Sim';
@@ -62,6 +68,25 @@
                             ?>
                         </td>
 					</tr>
+				</table>
+
+				<table class="visualizar">
+					<tr>
+						<th colspan="2" class="titulo">Livros Cadastrados do autor</th>
+					</tr>
+				<?php
+					$sql = "SELECT capa, id, titulo FROM livro WHERE autor = $id";
+					$r = mysqli_query($con, $sql);
+
+					while ($result2 = mysqli_fetch_array($r)){
+				?>
+						<tr>
+							<td class="livro"><img class="livro" src="<?php if (!empty($result2["capa"])){ echo '_imagens/' . $result2['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
+							<td colspan="2" class="XL"><a class="emplink" href="editarLivro.php?id=<?php echo $result2['id']?>"><?php echo $result2["titulo"]; ?></a></td>
+						</tr>
+				<?php
+					}
+				?>	
 				</table>
 			</div><!--
 		

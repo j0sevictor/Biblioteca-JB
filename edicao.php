@@ -57,7 +57,7 @@
 
 
        header('Location: listarLivros.php');
-    }else if ($form == 'AUTOR'){
+    }elseif ($form == 'AUTOR'){
 
         $id = $_POST["id"];
 
@@ -96,6 +96,38 @@
 
         header('Location: listarAutores.php');
         
+    }elseif ($form == 'ALUNO'){
+        
+        $id = $_POST['id'];
+
+        $ano = $_POST["ano"];
+        $numero = $_POST["numero"];
+        $turma = $_POST["turma"];
+        $nome = $_POST["nome"];
+
+        $sql = "UPDATE aluno
+                SET nomeleitor = '$nome', numero = $numero, ano = '$ano', turma = '$turma'
+                WHERE id = $id
+                LIMIT 1";
+
+        mysqli_query($con, $sql);
+
+        header('Location: pendencias.php');
+
+    }elseif ($form == 'PROFESSOR'){
+
+        $id = $_POST['id'];
+
+        $nome = $_POST["nome"];
+
+        $sql = "UPDATE professor
+                SET nomeleitor = '$nome'
+                WHERE id = $id
+                LIMIT 1";
+
+        mysqli_query($con, $sql);
+
+        header('Location: pendencias.php');
     }
 
 ?>

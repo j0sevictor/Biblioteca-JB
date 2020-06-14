@@ -36,9 +36,12 @@
 							
 							<td>Ano
 								<select name="ano" id="ano" class="field">
-									<option value="1">1°</option>
-									<option value="2">2°</option>
-									<option value="3">3°</option>
+									<?php
+										$anos = ['1', '2', '3'];
+										foreach ($anos as $ano){
+											echo '<option value="' . $ano . '">' . $ano . '°' . '</option>';
+										}
+									?>
 								</select></td>
 						</tr>
 
