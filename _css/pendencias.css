@@ -49,29 +49,39 @@ div#scroll{
 }
 
 a.A, a.B, a.C, a.D, a.P{
+    position: relative;
     display: inline-block;
     text-decoration: none;
-    width: 150px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    border: 2px solid #808080;
     text-align: center;
     margin: 0px;
     padding: 5px;
-    position: relative;
     color: black;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    transition: .2s;
+}
+a.A:hover, a.B:hover, a.C:hover, a.D:hover, a.P:hover{
+    transition: .2s;
+    background-color: rgb(247, 122, 6);
+    color: #DEEED0;
 }
 a.A{
-    background-color: #05BEE9;
-    color: #002027;
+    background-color: #0073e6;
+    color: #000000;
 }
 a.B{
     background-color: #59C400;
-    color: #DEEED0;
+    color: #e8f3de;
 }
 a.C{
-    background-color: #FFF10B;
+    background-color: #FFF30B;
     color: #474300;
 }
 a.D{
-    background-color: #025FBF;
+    background-color: #0891db;
     color: #DFE1D7;
 }
 a.P{

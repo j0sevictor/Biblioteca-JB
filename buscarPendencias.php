@@ -21,10 +21,10 @@
                 $x = FALSE;            
             }
 ?>
-                <table class="lista">
+                <table class="lista2">
                     <tr>
                     <td class="livro"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
-                        <td id="<?php echo 'titulo' . $result['id'] ?>"><?php echo $result['titulo']; ?></td>
+                        <td class="titulo" id="<?php echo 'titulo' . $result['id'] ?>"><?php echo $result['titulo']; ?></td>
                     </tr>
 
                     <tr>
@@ -51,14 +51,14 @@
         while ($result = mysqli_fetch_array($r)){
             if ($x) {
                 echo '<h1>Pendências de Livros Para <span id="nomeleitorP">"' . $result['nomeleitor'] . '"</span></h1>';
-                $x = FALSE;            
+                $x = FALSE;           
             }
 
 ?>
-                <table class="lista">
+                <table class="lista2">
                     <tr>
                         <td class="livro"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
-                        <td id="<?php echo 'tituloP' . $result['id'] ?>"><?php echo $result['titulo']; ?></td>
+                        <td class="titulo" id="<?php echo 'tituloP' . $result['id'] ?>"><?php echo $result['titulo']; ?></td>
                     </tr>
 
                     <tr>
@@ -67,6 +67,9 @@
                     </tr>
                 </table>
 <?php
+        }
+        if ($x) {
+            echo "<h2>Nenhuma pendência foi achada para '$nome'</h2>";
         }
     }
 

@@ -10,14 +10,17 @@ table.lista{
 	border-spacing: 0;
 	text-align: center;
 }
+table#expandir td{
+	padding: 10px;
+}
 table.lista td.Y{
 	border:1px solid #606060;
 	background-color: #404040;
-	color: #cecece;
+	color: #e9e6e6;
 }
 table.lista td.X{
 	border:1px solid #606060;
-	color: #cecece;
+	color: #e9e6e6;
 	background-color: #808080;
 }
 table.lista td.YL{
@@ -52,6 +55,13 @@ th.titulo, table.lista th{
 td.livro{
 	position: relative;
 	width: 100px;
+	border:1px solid #606060;
+	background-color: #404040;
+	text-align: center;
+}
+td.livroM{
+	position: relative;
+	width: 50%;
 	border:1px solid #606060;
 	background-color: #404040;
 	text-align: center;
@@ -204,4 +214,36 @@ a#emprestado{
 a#emprestado:hover{
 	transition: .2s;
 	background-color: rgb(247, 122, 6);
+}
+button.linkBtEx{
+	background-color: tomato;
+	border: tomato solid 1px;
+	color: blanchedalmond;
+	cursor: pointer;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+	padding: 10px;
+	transition: .2s;
+	outline: none;
+}
+button.linkBtEx:hover{
+	transition: .2s;
+	background-color: rgb(197, 77, 56);
+	border-color: rgb(197, 77, 56);
+	color: rgb(211, 195, 172);
+}
+button.linkBt{
+	background-color: darkcyan;
+	border: darkcyan solid 1px;
+	color: blanchedalmond;
+	cursor: pointer;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+	padding: 10px;
+	transition: .2s;
+	outline: none;
+}
+button.linkBt:hover{
+	transition: .2s;
+	background-color: rgb(0, 119, 119);
+	border-color: rgb(0, 119, 119);
+	color: rgb(211, 195, 172);
 }

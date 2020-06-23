@@ -1,6 +1,7 @@
 <?php
     $usuario = 'victor';
-    $senha = 'lima';
+    $senha = '1234';
+
     if (!isset($_SERVER['PHP_AUTH_USER']) ||
         !isset($_SERVER['PHP_AUTH_PW']) ||
         ($_SERVER['PHP_AUTH_USER'] != $usuario || $_SERVER['PHP_AUTH_PW'] != $senha)){

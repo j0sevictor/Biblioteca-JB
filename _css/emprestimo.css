@@ -8,3 +8,13 @@ select.resultado, select.resultado2{
 table.pendencias{
     border: 2px solid #606060;
 }
+table.lista2{
+    position: relative;
+    width: 100%;
+    border: 2px solid #606060;
+}
+table.lista2 td.titulo{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16pt;
+}

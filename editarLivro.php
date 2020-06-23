@@ -1,5 +1,6 @@
 <?php
 	include_once('autenticador.php');
+	include_once('varcod.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,8 +39,8 @@
 				?>
 				<table class="visualizar">
 					<tr>
-						<td class="livro"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
-						<td class="livro"><img class="livro" src="<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
+						<td class="livroM"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
+						<td class="livroM"><img class="livro" src="<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
 					</tr>
 
 					<tr>
@@ -176,10 +177,10 @@
 			<div class="duploB">
 				<h1>Está emprestado para:</h1>
 				
-				<table class="lista">
+				<table class="lista" id="expandir">
 					<tr>
-						<th>Número</th>
 						<th>Nome</th>
+						<th>Número</th>
 						<th>Ano</th>
 						<th>Turma</th>
 						<th>Data e hora do Emprestimo</th>
@@ -187,28 +188,32 @@
 					<?php
 						$sql = "SELECT aluno.nomeleitor, aluno.numero, aluno.ano, aluno.turma, emprestimo.dataemp, aluno.id AS alunoid, emprestimo.id AS empid
 								FROM emprestimo JOIN aluno
-								ON emprestimo.leitorid = aluno.id AND permicao = 'ALUNO' AND emprestimo.livroid = $id";
+								ON emprestimo.leitorid = aluno.id AND permicao = 'ALUNO' AND emprestimo.livroid = $id ORDER BY aluno.ano, aluno.turma";
 						$r = mysqli_query($con, $sql);
-						
 						$x = TRUE;
 						while($result = mysqli_fetch_array($r)){
+							for ($i = 0; $i <= 3; $i++){
+								if ($result['turma'] == $valores[$i]) {
+									$turma = $cursos[$i];
+								}
+							}
 							if ($x){
 					?>
 							<tr>
-								<td class="XL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
 								<td class="X"><?php echo $result['nomeleitor']; ?></td>
+								<td class="XL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
 								<td class="X"><?php echo $result['ano']; ?>°</td>
-								<td class="X"><?php echo $result['turma']; ?></td>
+								<td class="X"><?php echo $turma; ?></td>
 								<td class="XL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1"><?php echo $result['dataemp']; ?></a></td>
 							</tr>
 					<?php 
 							}else{
 					?>
 								<tr>
-									<td class="YL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
 									<td class="Y"><?php echo $result['nomeleitor']; ?></td>
+									<td class="YL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
 									<td class="Y"><?php echo $result['ano']; ?>°</td>
-									<td class="Y"><?php echo $result['turma']; ?></td>
+									<td class="Y"><?php echo $turma; ?></td>
 									<td class="YL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1"><?php echo $result['dataemp']; ?></a></td>
 								</tr>
 					<?php 
@@ -219,8 +224,36 @@
 								$x = TRUE;
 							}
 						}
-					
+
+						$sql = "SELECT professor.nomeleitor, emprestimo.dataemp, professor.id AS profid, emprestimo.id AS empid
+								FROM emprestimo JOIN professor
+								ON emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' AND emprestimo.livroid = $id ORDER BY professor.nomeleitor";
+						$r = mysqli_query($con, $sql);
+						while($result = mysqli_fetch_array($r)){
+							if ($x){
 					?>
+								<tr>
+									<td class="XL"><a class="emplink" href="editarAP.php?id=<?php echo $result['profid']; ?>&tipo=0"><?php echo $result['nomeleitor']; ?></a></td>
+									<td class="X" colspan="3">Professor</td>
+									<td class="XL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=0"><?php echo $result['dataemp']; ?></a></td>
+								</tr>
+					<?php 
+							}else{
+					?>
+								<tr>
+									<td class="YL"><a class="emplink" href="editarAP.php?id=<?php echo $result['profid']; ?>&tipo=0"><?php echo $result['nomeleitor']; ?></a></td>
+									<td class="Y" colspan="3">Professor</td>
+									<td class="YL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=0"><?php echo $result['dataemp']; ?></a></td>
+								</tr>
+				<?php 
+							}
+							if ($x) {
+								$x = FALSE;
+							}else{
+								$x = TRUE;
+							}
+						}
+				?>
 
 
 				</table>

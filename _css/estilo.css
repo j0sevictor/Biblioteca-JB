@@ -64,7 +64,7 @@ body{
 		display: block;
 		margin: 0;
 		width: 80%;
-		margin-left: -5%;
+		margin-left: -30px;
 		margin-top: 5%;
 	}
 	ul#links li{
@@ -86,18 +86,6 @@ body{
 		transition: .2s;
 		color: rgb(224, 211, 211);
 		background-color: rgb(99, 104, 99);
-	}
-	button.linkBtEx{
-		background-color: tomato;
-		border: tomato solid 3px;
-		color: blanchedalmond;
-		cursor: pointer;
-	}
-	button.linkBt{
-		background-color: darkcyan;
-		border: darkcyan solid 3px;
-		color: blanchedalmond;
-		cursor: pointer;
 	}
 
 /* Conteudo e Formulários */
@@ -163,6 +151,10 @@ body{
 		border-radius: 5px;
 		padding-top: 1%;
 		padding-bottom: 1%;
+	}
+	select.field option{
+    	background-color: #F4F4F4;
+		color: #202020;
 	}
 	textarea.field{
 		position: relative;

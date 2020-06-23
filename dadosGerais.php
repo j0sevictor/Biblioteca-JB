@@ -3,155 +3,7 @@
 	include_once('varcod.php');
 	include_once('Conexao.php');
 
-	function empsTotal($con, $meses=TRUE){
-		if ($meses) {
-			
-			$sql = "SELECT dataemp FROM emprestimo WHERE permicao = 'ALUNO' ORDER BY dataemp";
-			$r = mysqli_query($con, $sql);
-
-			$tupla = '';
-			$datas = [];
-			while ($result = mysqli_fetch_array($r)){
-				$mes = $result['dataemp'][5] . $result['dataemp'][6];
-
-				if (!in_array($mes, $datas)) {
-					if ($mes == '01') {
-						$tupla .= "'JAN', ";
-					}elseif ($mes == '02') {
-						$tupla .= "'FEV', ";
-					}elseif ($mes == '03') {
-						$tupla .= "'MAR', ";
-					}elseif ($mes == '04') {
-						$tupla .= "'ABR', ";
-					}elseif ($mes == '05') {
-						$tupla .= "'MAI', ";
-					}elseif ($mes == '06') {
-						$tupla .= "'JUN', ";
-					}elseif ($mes == '07') {
-						$tupla .= "'JUL', ";
-					}elseif ($mes == '08') {
-						$tupla .= "'AGO', ";
-					}elseif ($mes == '09') {
-						$tupla .= "'SET', ";
-					}elseif ($mes == '10') {
-						$tupla .= "'OUT', ";
-					}elseif ($mes == '11') {
-						$tupla .= "'NOV', ";
-					}elseif ($mes == '12') {
-						$tupla .= "'DEZ', ";
-					}
-
-					$datas[] = $mes;
-				}
-			}
-			$t = strlen($tupla);
-			$ntupla = '';
-			for ($i = 0; $i <= $t; $i++){
-				if ($i >= ($t - 2)) {
-					continue;
-				}
-				$ntupla .= $tupla[$i]; 
-			}
-			return $ntupla;
-		}else{
-			$sql = "SELECT dataemp FROM emprestimo WHERE permicao = 'ALUNO' ORDER BY dataemp";
-			$r = mysqli_query($con, $sql);
-
-			$tupla = array(
-				'jan' => 0,
-				'fev' => 0,
-				'mar' => 0,
-				'abr' => 0,
-				'mai' => 0,
-				'jun' => 0,
-				'jul' => 0,
-				'ago' => 0,
-				'set' => 0,
-				'out' => 0,
-				'nov' => 0,
-				'dez' => 0
-			);
-			while ($result = mysqli_fetch_array($r)){
-				$mes = $result['dataemp'][5] . $result['dataemp'][6];
-
-				if ($mes == '01') {
-					$tupla['jan']++;
-				}elseif ($mes == '02') {
-					$tupla['fev']++;
-				}elseif ($mes == '03') {
-					$tupla['mar']++;
-				}elseif ($mes == '04') {
-					$tupla['abr']++;
-				}elseif ($mes == '05') {
-					$tupla['mai']++;
-				}elseif ($mes == '06') {
-					$tupla['jun']++;
-				}elseif ($mes == '07') {
-					$tupla['jul']++;
-				}elseif ($mes == '08') {
-					$tupla['ago']++;
-				}elseif ($mes == '09') {
-					$tupla['set']++;
-				}elseif ($mes == '10') {
-					$tupla['out']++;
-				}elseif ($mes == '11') {
-					$tupla['nov']++;
-				}elseif ($mes == '12') {
-					$tupla['dez']++;
-				}	
-			}
-			$ntupla = '';
-			foreach($tupla as $mes){
-				if ($mes != 0){
-					$ntupla .= "$mes, "; 
-				}
-			}
-			$t = strlen($ntupla);
-			$nntupla = '';
-			for ($i = 0; $i <= $t; $i++){
-				if ($i >= ($t - 2)) {
-					continue;
-				}
-				$nntupla .= $ntupla[$i]; 
-			}
-			return $nntupla;
-		}
-	}
-
-	function empsTurma($con, $serie){
-		$sql = "SELECT count(*) AS numEmp FROM 
-				emprestimo JOIN aluno
-				ON emprestimo.leitorid = aluno.id AND permicao = 'ALUNO' AND ano = $serie";
-		$r = mysqli_query($con, $sql);
-		
-		if ($result = mysqli_fetch_array($r)) {
-			return $result['numEmp'];
-		}else{
-			return 0;
-		}
-	}
-	
-	function entregues($con, $entregue=TRUE){
-		if ($entregue) {
-			$sql = "SELECT count(*) AS numEnt FROM emprestimo
-					WHERE permicao = 'ALUNO' AND estado = 'Entregue'";
-			$r = mysqli_query($con, $sql);
-			if ($result = mysqli_fetch_array($r)) {
-				return $result['numEnt'];
-			}else{
-				return 0;
-			}
-		}else{
-			$sql = "SELECT count(*) AS numEmp FROM emprestimo
-					WHERE permicao = 'ALUNO' AND estado = 'Emprestado'";
-			$r = mysqli_query($con, $sql);
-			if ($result = mysqli_fetch_array($r)) {
-				return $result['numEmp'];
-			}else{
-				return 0;
-			}
-		}
-	}
+	include_once('funcoesGraficos.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -160,6 +12,8 @@
 		<title>BJB</title>
 		<link rel="stylesheet" type="text/css" href="_css/estilo.css">
 		<link rel="stylesheet" type="text/css" href="_css/grafico.css">
+		<link rel="stylesheet" type="text/css" href="_css/listar.css">
+		<link rel="stylesheet" type="text/css" href="_css/pendencias.css">
 		<link rel="shortcut icon" type="image/x-png" href="_interface/logo.png">
 		<script type="text/javascript" src="_javascript/funcoes.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
@@ -183,8 +37,10 @@
 			<div id="lista">
 
 				<h1>Dados das Turmas</h1>
+
+				<a class="P" href="dadosEspecificos.php">Dados Específicos</a>
 				
-                <h2>Emprestimos gerais</h2>
+                <h2>Empréstimos gerais</h2>
 
                 <div class="grafico">
                 	<canvas id="empsTotal"></canvas>
@@ -209,7 +65,7 @@
 					</script>
 				</div>
 
-				<h2>Emprestimos por séries</h2>
+				<h2>Empréstimos por séries</h2>
 
 				<div class="bloco">
                 	<canvas id="empsTurmas"></canvas>
@@ -261,8 +117,41 @@
 					</script>
 				</div>
 
+				<div class="bloco">
+					<h2>Outros Dados</h2>
 
-				
+					<?php
+						$sql = "SELECT permicao, count(permicao) AS empLeitor FROM emprestimo GROUP BY permicao";
+											
+						$r = mysqli_query($con, $sql);
+						
+						while ($result = mysqli_fetch_array($r)){
+							if ($result['permicao'] == 'ALUNO') {
+								$empAluno = $result['empLeitor'];
+							}else{
+								$empProf = $result['empLeitor'];
+							}
+						}
+					?>
+					<table class="visualizar2">
+
+						<tr>
+							<td class="Y">Emprestimos Absolutos:</td>
+							<td class="X"><?php echo $empAluno + $empProf; ?></td>
+						</tr>
+
+						<tr>
+							<td class="Y">Emprestimos para Alunos:</td>
+							<td class="X"><?php echo $empAluno; ?></td>
+						</tr>
+
+						<tr>
+							<td class="Y">Emprestimos Professores:</td>
+							<td class="X"><?php echo $empProf; ?></td>
+						</tr>
+						
+					</table>
+				</div>
 
 			</div>	
 			
