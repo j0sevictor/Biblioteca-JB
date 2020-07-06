@@ -1,4 +1,25 @@
 <?php
+    function unlinkArquivo($con, $id, $capa=FALSE, $contra=FALSE, $foto=FALSE){
+        if ($capa){
+            $sql = "SELECT capa FROM livro WHERE id = $id";
+            $result = mysqli_fetch_array(mysqli_query($con, $sql));
+            unlink("_imagens/" . $result['capa']);
+        }
+
+        if ($contra){
+            $sql = "SELECT contra FROM livro WHERE id = $id";
+            $result = mysqli_fetch_array(mysqli_query($con, $sql));
+            unlink("_imagens/" . $result['contra']);
+        }
+
+        if ($foto){
+            $sql = "SELECT foto FROM autor WHERE id = $id";
+            $result = mysqli_fetch_array(mysqli_query($con, $sql));
+            unlink("_imagens/" . $result['foto']);
+        }
+        
+    }
+
     $form = $_POST['formulario'];
 
     include_once('Conexao.php');
@@ -33,18 +54,29 @@
                     WHERE id = $id
                     LIMIT 1";
         }else if(!empty($capa) && empty($ccapa)){
+
+            unlinkArquivo($con, $id, TRUE);
+
             $sql = "UPDATE livro 
                     SET genero = '$gel', isbn = '$isbn', titulo = '$titulo', cdd = '$cdd', autor = $autor, dataRemessa = $data, exemplares = $exemp, capa = '$capa'
                     WHERE id = $id
                     LIMIT 1";
             move_uploaded_file($_FILES["capa"]["tmp_name"], $targetc);
+
         }else if(!empty($ccapa) && empty($capa)){
+
+            unlinkArquivo($con, $id, FALSE, TRUE);
+
             $sql = "UPDATE livro 
                     SET genero = '$gel', isbn = '$isbn', titulo = '$titulo', cdd = '$cdd', autor = $autor, dataRemessa = $data, exemplares = $exemp, contra = '$ccapa'
                     WHERE id = $id
                     LIMIT 1";
             move_uploaded_file($_FILES["contracapa"]["tmp_name"], $targetcc);
+
         }else{
+
+            unlinkArquivo($con, $id, TRUE, TRUE);
+
             $sql = "UPDATE livro 
                     SET genero = '$gel', isbn = '$isbn', titulo = '$titulo', cdd = '$cdd', autor = $autor, dataRemessa = $data, exemplares = $exemp, capa = '$capa', contra = '$ccapa'
                     WHERE id = $id
@@ -79,12 +111,16 @@
         }
 
         if (!empty($foto)) {
+
+            unlinkArquivo($con, $id, FALSE, FALSE, TRUE);
+
             $sql = "UPDATE autor
                     SET nome = '$nome', descricao = '$desc', dataNasc = $data, autordomes = $autmes, foto = '$foto'
                     WHERE id = $id
                     LIMIT 1";
             $target = "_imagens/" . $foto;
             move_uploaded_file($_FILES["fotoAutor"]["tmp_name"], $target);
+            
         }else{
             $sql = "UPDATE autor
                     SET nome = '$nome', descricao = '$desc', dataNasc = $data, autordomes = $autmes

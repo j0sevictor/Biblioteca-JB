@@ -108,6 +108,20 @@ body{
 		transition: .2s;
 		transform: scale(1.2);
 	}
+	span#icone{
+		display: block;
+		float: left;
+	}
+	img.icone{
+		width: 30px;
+		margin: 0;
+		transition: .2s;
+		cursor: pointer;
+	}
+	img.icone:hover{
+		transition: .2s;
+		transform: scale(1.2);
+	}
 	form{
 		position: relative;
 		width: 100%;

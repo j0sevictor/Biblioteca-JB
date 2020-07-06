@@ -45,12 +45,12 @@
                         ?>
     
                                 <tr>
-                                    <td>Nome<input type="text" name="nome" id="nome" class="field" value="<?php echo $result['nomeleitor']; ?>"></td>
+                                    <td>Nome<input type="text" name="nome" id="nome" class="field" value="<?php echo $result['nomeleitor']; ?>" maxlength="85"></td>
                                 </tr>
 
                                 <tr>
                                     <td>Ano
-                                        <select name="ano" id="ano" class="field">
+                                        <select name="ano" id="ano" class="field" required>
                                             <?php
                                                 $anos = ['1', '2', '3'];
                                                 foreach ($anos as $ano){
@@ -67,7 +67,7 @@
                                 <tr>
                                     
                                     <td>Turma
-                                        <select name="turma" id="turma" class="field">
+                                        <select name="turma" id="turma" class="field" required>
                                             <?php
                                                 for ($i = 0; $i <= 3; $i++){
                                                     if ($result['turma'] == $valores[$i]){
@@ -84,7 +84,7 @@
 
                                 <tr>
                                     
-                                    <td>Número<input type="number" name="numero" id="numero" class="field" value="<?php echo $result['numero']; ?>"></td>
+                                    <td>Número<input type="number" name="numero" id="numero" class="field" value="<?php echo $result['numero']; ?>" min="1" max="50" required="true"></td>
                                 </tr>
                         <?php
                             }else{
@@ -94,7 +94,7 @@
                                 $result = mysqli_fetch_array($r);
                         ?>
             					<tr>
-							        <td>Nome<input type="text" name="nome" id="nome" class="field" value="<?php echo $result['nomeleitor']; ?>"></td>
+							        <td>Nome<input type="text" name="nome" id="nome" class="field" value="<?php echo $result['nomeleitor']; ?>" maxlength="85" required="true"></td>
 			    			    </tr>
                         <?php
                         
@@ -141,7 +141,16 @@
 
                             <tr>
                                 <td class="Y">Turma:</td>
-                                <td class="X"><?php echo $result["turma"]; ?></td>
+                                <td class="X">
+                                    <?php
+                                        for ($i = 0; $i <= 3; $i++){
+                                            if ($result['turma'] == $valores[$i]) {
+                                                echo $cursos[$i];
+                                                break;
+                                            }
+                                        }  
+                                    ?>
+                                </td>
                             </tr>
 
                             <tr>

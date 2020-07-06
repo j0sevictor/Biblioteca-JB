@@ -48,6 +48,38 @@
         mysqli_query($con, $sql);
 
         header('Location: pendencias.php');
+
+    }elseif ($tipo == 'IMAGEM') {
+        
+        $target = $_GET['target'];
+        $lado = $_GET['lado'];
+
+        if ($target) {
+            $sql = "UPDATE livro
+                    SET $lado = ''
+                    WHERE id = $id
+                    LIMIT 1";
+            mysqli_query($con, $sql);
+
+            unlink($target);
+        }
+
+        header("Location: editarLivro.php?id=$id");
+
+    }elseif ($tipo == 'FOTO'){
+        $target = $_GET['target'];
+
+        if ($target) {
+            $sql = "UPDATE autor
+                    SET foto = ''
+                    WHERE id = $id
+                    LIMIT 1";
+            mysqli_query($con, $sql);
+
+            unlink($target);
+        }
+
+        header("Location: editarAutor.php?id=$id");
     }
     
 ?>

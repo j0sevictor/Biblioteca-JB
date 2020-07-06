@@ -31,8 +31,8 @@
 				<h1>Autores</h1>
 
 				<form action="pesquisar.php" method="POST">
-					<select name="coluna" class="fieldPesq">
-						<option>Selecione em qual Campo será feita a busca</option>
+					<select name="coluna" class="fieldPesq" required>
+						<option selected disabled>Selecione em qual Campo será feita a busca</option>
 						<?php
 							include_once('Conexao.php');
 
@@ -81,7 +81,7 @@
 										<td class="X"><?php echo $result["id"]; ?></td>
 										<td class="X"><?php echo $result["nome"]; ?></td>
 										<td class="X"><?php echo $result["descricao"]; ?></td>
-										<td class="X"><?php echo $result["dataNasc"]; ?></td>
+										<td class="X"><?php if ($result['dataNasc']){ echo date("d/m/Y", strtotime($result["dataNasc"])); } ?></td>
 										<td class="X"><?php 
 												if ($result['autordomes']) {
 													echo 'Sim';
@@ -101,7 +101,7 @@
 										<td class="Y"><?php echo $result["id"]; ?></td>
 										<td class="Y"><?php echo $result["nome"]; ?></td>
 										<td class="Y"><?php echo $result["descricao"]; ?></td>
-										<td class="Y"><?php echo $result["dataNasc"]; ?></td>
+										<td class="Y"><?php if ($result['dataNasc']){ echo date("d/m/Y", strtotime($result["dataNasc"])); } ?></td>
 										<td class="Y"><?php 
 												if ($result['autordomes']) {
 													echo 'Sim';

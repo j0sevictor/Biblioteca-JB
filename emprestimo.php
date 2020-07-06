@@ -33,9 +33,8 @@
 					<table class="formulario">
 						
 						<tr>
-							
 							<td>Ano
-								<select name="ano" id="ano" class="field">
+								<select name="ano" id="ano" class="field" required>
 									<?php
 										$anos = ['1', '2', '3'];
 										foreach ($anos as $ano){
@@ -48,7 +47,7 @@
 						<tr>
 							
 							<td>Turma
-								<select name="turma" id="turma" class="field">
+								<select name="turma" id="turma" class="field" required>
 									<?php
                                         for ($i = 0; $i <= 3; $i++){
                                             echo '<option value="' . $valores[$i] . '">' . $cursos[$i] . '</option>';
@@ -61,18 +60,18 @@
 
 						<tr>
 							
-							<td>Número<input type="number" name="numero" id="numero" class="field"></td>
+							<td>Número<input type="number" name="numero" id="numero" class="field" min="1" max="50" required="true"></td>
 						</tr>
 
 						<tr>
-							<td>Nome<input type="text" name="nome" id="nome" class="field"></td>
+							<td>Nome<input type="text" name="nome" id="nome" class="field" maxlength="85"></td>
 						</tr>
 
 						<tr>
 							
 							<td>Livro
-								<input type="text" name="livroTitulo" id="livroTitulo" class="field">
-								<select class="resultado" name="livroId">
+								<input type="text" name="livroTitulo" id="livroTitulo" class="field" autocomplete="off" required>
+								<select class="resultado" name="livroId" required>
 									
 								</selct>
 							</td>
@@ -93,14 +92,14 @@
 					<table class="formulario">
 						
 						<tr>
-							<td>Nome<input type="text" name="nome" id="nome" class="field"></td>
+							<td>Nome<input type="text" name="nome" id="nome" class="field" maxlength="85" required="true"></td>
 						</tr>
 
 						<tr>
 							
 							<td>Livro
-								<input type="text" name="livroTitulo" id="livroTitulo2" class="field">
-								<select class="resultado2" name="livroId">
+								<input type="text" name="livroTitulo" id="livroTitulo2" class="field" autocomplete="off" required>
+								<select class="resultado2" name="livroId" required>
 									
 								</selct>
 							</td>

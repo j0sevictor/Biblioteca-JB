@@ -48,7 +48,6 @@
 					}
 				?>
 					<tr>
-						
 						<td>Ano
 							<select name="ano" id="ano" class="field">
 								<?php
@@ -69,7 +68,6 @@
 					</tr>
 
 					<tr>
-						
 						<td>Turma
 							<select name="turma" id="turma" class="field">
 								<?php

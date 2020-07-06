@@ -110,7 +110,7 @@
 									}else{
 										$situ = FALSE;
 									}
-									#CONCERTA O ERRO VICTOR - Burrroooo, 
+									#CONCERTA O ERRO VICTOR - Burrroooo, Resolvi
 									$estado = intervalo_Data($result['dataemp'], $situ, FALSE);
 									$numero = $result['numero'];
 

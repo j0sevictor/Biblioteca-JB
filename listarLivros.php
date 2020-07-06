@@ -32,8 +32,8 @@
 
 				
 				<form action="pesquisar.php" method="POST">
-					<select name="coluna" class="fieldPesq">
-						<option>Selecione em qual Campo será feita a busca</option>
+					<select name="coluna" class="fieldPesq" required>
+						<option selected disabled>Selecione em qual Campo será feita a busca</option>
 						<?php
 							include_once('Conexao.php');
 
@@ -41,9 +41,7 @@
 							$r = mysqli_query($con, $sql);
 
 							while ($result = mysqli_fetch_array($r)){
-								if ($result['coluna'] != 'capa' && $result['coluna'] != 'contra') {
-									echo '<option value"' . $result['coluna'] . '">' . $result['coluna'] . '</option>';
-								}
+								echo '<option value"' . $result['coluna'] . '">' . $result['coluna'] . '</option>';
 							}
 						?>
 					</select>
@@ -91,7 +89,7 @@
 										<td class="X"><?php echo $result["cdd"]; ?></td>
 										<td class="X"><?php echo $result["isbn"]; ?></td>
 										<td class="X"><?php echo $result["exemplares"]; ?></td>
-										<td class="X"><?php echo $result["dataRemessa"]; ?></td>
+										<td class="X"><?php if ($result['dataRemessa']){ echo date("d/m/Y", strtotime($result["dataRemessa"])); } ?></td>
 										<td class="X"><a href="editarLivro.php?id=<?php echo $result['id'] ?>"><button class="linkBt">Editar</button></a></td>
 										<td class="X"><button class="linkBtEx" id="<?php echo $result["id"]; ?>" value="<?php echo $result["titulo"]; ?>" onclick="abrirTelaExcluir(id)">Excluir</button></td>
 									</tr>
@@ -108,7 +106,7 @@
 										<td class="Y"><?php echo $result["cdd"]; ?></td>
 										<td class="Y"><?php echo $result["isbn"]; ?></td>
 										<td class="Y"><?php echo $result["exemplares"]; ?></td>
-										<td class="Y"><?php echo $result["dataRemessa"]; ?></td>
+										<td class="Y"><?php if ($result['dataRemessa']){ echo date("d/m/Y", strtotime($result["dataRemessa"])); } ?></td>
 										<td class="Y"><a href="editarLivro.php?id=<?php echo $result['id']; ?>"><button class="linkBt">Editar</button></a></td>
 										<td class="Y"><button class="linkBtEx" id="<?php echo $result["id"]; ?>" value="<?php echo $result["titulo"]; ?>" onclick="abrirTelaExcluir(id)">Excluir</button></td>
 									</tr>

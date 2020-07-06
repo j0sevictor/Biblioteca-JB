@@ -1,7 +1,8 @@
 <?php
+
     function empsTotal($con, $meses=TRUE){
 		if ($meses) {
-			
+
 			$sql = "SELECT dataemp FROM emprestimo WHERE permicao = 'ALUNO' ORDER BY dataemp";
 			$r = mysqli_query($con, $sql);
 
@@ -40,10 +41,11 @@
 					$datas[] = $mes;
 				}
 			}
-			$t = strlen($tupla);
+
+			$t = strlen($tupla) - 2;
 			$ntupla = '';
 			for ($i = 0; $i <= $t; $i++){
-				if ($i >= ($t - 2)) {
+				if ($i >= $t) {
 					continue;
 				}
 				$ntupla .= $tupla[$i]; 
@@ -147,6 +149,53 @@
 				return 0;
 			}
 		}
-    }
+	}
+	
+	function generos($con, $meses=TRUE){
+		if ($meses) {
+
+			$sql = 'SELECT livro.genero FROM emprestimo JOIN livro
+					ON livro.id = emprestimo.leitorid GROUP BY livro.genero';
+			$r = mysqli_query($con, $sql);
+
+			$tupla = '';
+			while ($result = mysqli_fetch_array($r)){
+				$tupla .= "'" . $result['genero'] . "', "; 
+			}
+
+			$t = strlen($tupla) - 2;
+			$ntupla = '';
+			for ($i = 0; $i <= $t; $i++){
+				if ($i >= $t) {
+					continue;
+				}
+				$ntupla .= $tupla[$i]; 
+			}
+
+			return $ntupla;	
+		}else{
+			
+			$sql = 'SELECT COUNT(livro.genero) AS leituras 
+					FROM emprestimo JOIN livro
+					ON livro.id = emprestimo.livroid GROUP BY livro.genero';
+			$r = mysqli_query($con, $sql);
+
+			$tupla = '';
+			while ($result = mysqli_fetch_array($r)){
+				$tupla .= $result['leituras'] . ', '; 
+			}
+			
+			$t = strlen($tupla) - 2;
+			$ntupla = '';
+			for ($i = 0; $i <= $t; $i++){
+				if ($i >= $t) {
+					continue;
+				}
+				$ntupla .= $tupla[$i]; 
+			}
+
+			return $ntupla;
+		}
+	}
     
 ?>

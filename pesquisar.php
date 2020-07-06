@@ -30,7 +30,11 @@
                 <h1 id="titulo">Achado na Pesquisa:</h1>
 
                 <?php
-                    $tabela = $_POST['tabela'];
+                    if (isset($_POST['tabela'])){
+                        $tabela = $_POST['tabela'];
+                    }else{
+                        $tabela = '';
+                    }
                     if ($tabela == 'livro'){
                 ?>
                         <table class="lista">
@@ -52,26 +56,34 @@
                             <?php
                                 include_once('Conexao.php');
 
-                                $coluna = $_POST['coluna'];
-                                $txt = $_POST['txtBusca'];
-                                $tabela = $_POST['tabela'];
-
-                                $palavras_chave = explode(' ', $txt);
+                                if (isset($_POST['coluna']) && isset($_POST['txtBusca'])){
+                                    $coluna = $_POST['coluna'];
+                                    $txt = $_POST['txtBusca'];
+                                }else{
+                                    $coluna = '';
+                                    $txt = '';
+                                }
 
                                 if (!empty($txt)){
                                     if ($coluna == 'autor') {
                                         $sql = "SELECT livro.capa, livro.contra, livro.id, livro.titulo, livro.cdd, livro.isbn, autor.nome AS autor, livro.dataRemessa, livro.exemplares, livro.genero 
-                                                FROM $tabela JOIN autor
-                                                ON livro.autor = autor.id AND nome LIKE '%$txt%'";
+                                                FROM livro JOIN autor
+                                                ON livro.autor = autor.id AND autor.nome LIKE '%$txt%'";
+                                    }elseif ($coluna == 'capa' || $coluna == 'contra'){
+                                        $sql = "SELECT livro.capa, livro.contra, livro.id, livro.titulo, livro.cdd, livro.isbn, autor.nome AS autor, livro.dataRemessa, livro.exemplares, livro.genero 
+                                                FROM livro JOIN autor
+                                                ON livro.autor = autor.id AND livro.$coluna != ''";
                                     }else{
-                                        $sql = "SELECT * FROM $tabela WHERE $coluna LIKE '%$txt%'";
+                                        $sql = "SELECT livro.capa, livro.contra, livro.id, livro.titulo, livro.cdd, livro.isbn, autor.nome AS autor, livro.dataRemessa, livro.exemplares, livro.genero
+                                                FROM livro JOIN autor
+                                                ON livro.autor = autor.id AND $coluna LIKE '%$txt%'";
                                     }
                                     $r = mysqli_query($con, $sql);
                                 } else if ($coluna == 'dataRemessa'){
-                                    $sql = "SELECT * FROM $tabela WHERE $coluna IS NULL";
+                                    $sql = "SELECT * FROM livro WHERE $coluna IS NULL";
                                     $r = mysqli_query($con, $sql);
                                 } else{
-                                    $sql = "SELECT * FROM $tabela WHERE $coluna = ''";
+                                    $sql = "SELECT * FROM livro WHERE $coluna = ''";
                                     $r = mysqli_query($con, $sql);
                                 }
                     
@@ -154,30 +166,35 @@
                             <?php
                                 include_once('Conexao.php');
 
-                                $coluna = $_POST['coluna'];
-                                $txt = strtolower($_POST['txtBusca']);
+                                if (isset($_POST['coluna']) && isset($_POST['txtBusca'])){
+                                    $coluna = $_POST['coluna'];
+                                    $txt = strtolower($_POST['txtBusca']);
+                                }else{
+                                    $coluna = '';
+                                    $txt = '';
+                                }
+                                
                                 
                                 if  (!empty($txt)){
                                     if ($coluna == 'autordomes'){
-                                        if ($txt == 'sim' || $txt == '0' || $txt == 's'){
+                                        if ($txt == 'sim' || $txt == '1' || $txt == 's'){
                                             $txt = 1;
                                         }else {
                                             $txt = 0;
                                         }
+                                        $sql = "SELECT * FROM autor WHERE $coluna LIKE '%$txt%'";
+                                    }elseif ($coluna == 'foto'){
+                                        $sql = "SELECT * FROM autor WHERE $coluna != ''";
+                                    }else{
+                                        $sql = "SELECT * FROM autor WHERE $coluna LIKE '%$txt%'";
                                     }
-                
-                                    try {
-                                        $sql = "SELECT * FROM $tabela WHERE $coluna LIKE '%$txt%'";
-                                        $r = mysqli_query($con, $sql);
-                                    } catch (Exeptimon $e) {
-                                        $sql = "SELECT * FROM $tabela WHERE $coluna = $txt";
-                                        $r = mysqli_query($con, $sql);
-                                    }
+                                    $r = mysqli_query($con, $sql);
+
                                 } else if ($coluna == 'dataNasc'){
-                                    $sql = "SELECT * FROM $tabela WHERE $coluna IS NULL";
+                                    $sql = "SELECT * FROM autor WHERE $coluna IS NULL";
                                     $r = mysqli_query($con, $sql);
                                 }else{
-                                    $sql = "SELECT * FROM $tabela WHERE $coluna = ''";
+                                    $sql = "SELECT * FROM autor WHERE $coluna = ''";
                                     $r = mysqli_query($con, $sql);
                                 }
                                 

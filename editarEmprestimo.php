@@ -74,12 +74,26 @@
 
                     <tr>
                         <td class="Y">Data e hora do Emprestimo: </td>
-                        <td class="X"><?php echo $result['dataemp'] ?></td>
+                        <td class="X">
+                            <?php
+                                if ($result['dataemp']){
+                                    $dataHora = explode(' ', $result['dataemp']);
+                                    echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+                                }
+                            ?>
+                        </td>
                     </tr>
 
                     <tr>
                         <td class="Y">Data e hora da Devolução: </td>
-                        <td class="X"><?php echo $result['datadev'] ?></td>
+                        <td class="X">
+                            <?php
+                                if ($result['datadev']){
+                                    $dataHora = explode(' ', $result['datadev']);
+                                    echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+                                }
+                            ?>
+                        </td>
                     </tr>
                     
                 </table>

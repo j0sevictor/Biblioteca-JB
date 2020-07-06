@@ -24,7 +24,7 @@
 		<main class="conteudo">
 
 			<div class="bloco">
-				<a href="<?php echo $_SERVER['HTTP_REFERER'] ?>"><img src="_interface/voltar.png" id="voltar" title="Voltar à página anterior"></a>
+				<a href="listarAutores.php"><img src="_interface/voltar.png" id="voltar" title="Voltar à página Listar Autor"></a>
 				<h2>Dados Atuais</h2>
 				<?php
 					$id = $_GET['id'];
@@ -37,6 +37,13 @@
 					$result = mysqli_fetch_array($r);
 				?>
 				<table class="visualizar">
+
+					<caption>
+						<span id="icone">
+							<a href="excluir.php?tipo=FOTO&target=<?php if (!empty($result["foto"])){ echo '_imagens/' . $result['foto']; }else{ echo '0'; } ?>&id=<?php echo $id ?>"><img src="_interface/foto.png" class="icone" title="Deletar a foto do autor"></a>
+						</span>
+					</caption>
+
 					<tr>
 						<td class="foto" colspan="2"><img class="foto" src="<?php if (!empty($result['foto'])){ echo '_imagens/' . $result["foto"]; }else{ echo '_interface/escritorOculto.png'; } ?>"></td>
 					</tr>
@@ -53,7 +60,7 @@
 
                     <tr>
 						<td class="Y">Nascimento:</td>
-						<td class="X"><?php echo $result["dataNasc"]; ?></td>
+						<td class="X"><?php if ($result['dataNasc']){ echo date("d/m/Y", strtotime($result["dataNasc"])); }?></td>
 					</tr>
 
                     <tr>
@@ -95,15 +102,15 @@
 					<h2>Edição de Dados</h2>
 					<table class="formulario">
                         <tr>							
-							<td>Nome<input type="text" name="nomeautor" id="nomeautor" class="field" value="<?php echo $result["nome"]; ?>"></td>
+							<td>Nome<input type="text" name="nomeautor" id="nomeautor" class="field" value="<?php echo $result["nome"]; ?>" maxlength="100" required="true"></td>
 						</tr>
 
 						<tr>
-							<td><i>Descrição</i><textarea id="desc" name="desc" class="field"><?php echo $result["descricao"]; ?></textarea></td>
+							<td>Descrição<textarea id="desc" name="desc" class="field"><?php echo $result["descricao"]; ?></textarea></td>
 						</tr>
 
 						<tr>
-							<td><i>Nascimento</i><input type="date" class="field" name="datanasc" id="datanasc" value="<?php echo $result["dataNasc"]; ?>"></td>
+							<td>Nascimento<input type="date" class="field" name="datanasc" id="datanasc" value="<?php echo $result["dataNasc"]; ?>"></td>
 						</tr>
 						
 						<tr>
@@ -119,7 +126,7 @@
 
 
 						<tr>
-							<td><label class="file" for="fotoAutor">Atualizar Foto</label><input type="file" name="fotoAutor" id="fotoAutor" class="file"></td>
+							<td><label class="file" for="fotoAutor">Atualizar Foto</label><input type="file" name="fotoAutor" id="fotoAutor" class="file" accept="image/png, image/jpeg, image/jpg"></td>
 						</tr>
 
 						<tr>

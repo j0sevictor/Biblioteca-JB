@@ -25,7 +25,7 @@
 		<main class="conteudo">
 
 			<div class="bloco">
-				<a href="<?php echo $_SERVER['HTTP_REFERER'] ?>"><img src="_interface/voltar.png" id="voltar" title="Voltar à página anterior"></a>
+				<a href="listarLivros.php"><img src="_interface/voltar.png" id="voltar" title="Voltar à página Listar Livros"></a>
 				<h2>Dados Atuais</h2>
 				<?php
 					$id = $_GET['id'];
@@ -37,7 +37,16 @@
 					$r = mysqli_query($con, $sql);
 					$result = mysqli_fetch_array($r);
 				?>
+				
 				<table class="visualizar">
+
+					<caption>
+						<span id="icone">
+							<a href="excluir.php?tipo=IMAGEM&target=<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '0'; } ?>&id=<?php echo $id ?>&lado=capa"><img src="_interface/capa.png" class="icone" title="Deletar a capa do livro"></a>
+							<a href="excluir.php?tipo=IMAGEM&target=<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '0'; } ?>&id=<?php echo $id ?>&lado=contra"><img src="_interface/contra.png" class="icone" title="Deletar a contracapa"></a>
+						</span>
+					</caption>
+
 					<tr>
 						<td class="livroM"><img class="livro" src="<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
 						<td class="livroM"><img class="livro" src="<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '_interface/livroOculto.png'; } ?>"></td>
@@ -75,7 +84,7 @@
 
 					<tr>
 						<td class="Y">Data da Remessa:</td>
-						<td class="X" colspan="2"><?php echo $result["dataRemessa"]; ?></td>
+						<td class="X" colspan="2"><?php if ($result['dataRemessa']){ echo date("d/m/Y", strtotime($result["dataRemessa"])); } ?></td>
 					</tr>	
 				</table>
 			</div><!--
@@ -85,14 +94,14 @@
 					<h2>Edição de Dados</h2>
 					<table class="formulario">
 						<tr>
-							<td>Título<input type="text" name="titulo" id="titulo" class="field" value="<?php echo $result['titulo'] ?>"></td>
+							<td>Título<input type="text" name="titulo" id="titulo" class="field" value="<?php echo $result['titulo'] ?>" maxlength="100" required="true"></td>
 						</tr>
 
 						<tr>
 							
 							<td>Gênero
 								<select name="genero" id="genero" class="field">
-									<option value="Indefinido">Selecione um Gênero</option>
+									<option value="Indefinido" selected disabled>Selecione um Gênero</option>
 								<?php
 									include_once('varcod.php');
 
@@ -111,7 +120,7 @@
 						<tr>
 							
 							<td>Autor
-								<select name="nomeautor" id="nomeautor" class="field">
+								<select name="nomeautor" id="nomeautor" class="field" required>
 									<?php
 										$sql = 'SELECT id, nome FROM autor ORDER BY nome';
 
@@ -136,18 +145,18 @@
 						</tr>
 
 						<tr>
-							<td>ISBN<input type="text" name="isbn" id="isbn" class="field" value="<?php echo $result["isbn"]; ?>"></td>
+							<td>ISBN<input type="text" name="isbn" id="isbn" class="field" value="<?php echo $result["isbn"]; ?>" maxlength="17"></td>
 						</tr>
 
 
 						<tr>
 							
-							<td>CDD<input type="text" name="cdd" id="cdd" class="field" value="<?php echo $result["cdd"]; ?>"></td>
+							<td>CDD<input type="text" name="cdd" id="cdd" class="field" value="<?php echo $result["cdd"]; ?>" maxlength="20"></td>
 						</tr>
 
 						<tr>
 							
-							<td>Exemplares<input type="number" name="exemp" id="exemp" class="field" value="<?php echo $result["exemplares"]; ?>"></td>
+							<td>Exemplares<input type="number" name="exemp" id="exemp" class="field" value="<?php echo $result["exemplares"]; ?>" min="1" step="1"></td>
 						</tr>
 
 
@@ -157,11 +166,11 @@
 						</tr>
 
 						<tr>
-							<td><label class="file" for="capa">Atualizar Capa</label><input type="file" name="capa" id="capa" class="file"></td>
+							<td><label class="file" for="capa">Atualizar Capa</label><input type="file" name="capa" id="capa" class="file" accept="image/png, image/jpeg, image/jpg"></td>
 						</tr>
 
 						<tr>
-							<td><label class="file" for="contracapa">Atualizar Contracapa</label><input type="file" name="contracapa" id="contracapa" class="file"></td>
+							<td><label class="file" for="contracapa">Atualizar Contracapa</label><input type="file" name="contracapa" id="contracapa" class="file" accept="image/png, image/jpeg, image/jpg"></td>
 						</tr>
 
 						<tr>
