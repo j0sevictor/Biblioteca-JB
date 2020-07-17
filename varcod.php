@@ -3,5 +3,5 @@
 
     $valores = ['A', 'B', 'C', 'D'];
 
-    $generos = ['Épico', 'Lírico', 'Romântico', 'Técnico-Científico', 'Didático'];
+    $generos = ['Épico', 'Lírico', 'Dramático', 'Literatura Brasileira', 'Técnico-Científico', 'Didático'];
 ?>

@@ -1,6 +1,10 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap');
+
+
 body{
 	margin: 0;
-	font-family: Arial, sans-serif;
+	font-family: 'Titillium Web', sans-serif;
 }
 ::-webkit-scrollbar-track {
     background-color: #F4F4F4;
@@ -13,9 +17,6 @@ body{
 ::-webkit-scrollbar-thumb {
 	background: green;
 	box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-::-webkit-scrollbar-corner{
-	height: 50px;
 }
 
 /* Cabeçalho do Site*/
@@ -30,24 +31,12 @@ body{
 	div#logo{
 		position: relative;
 		display: block;
-		width: 125px;
+		width: 110px;
 		float: left;
 	}
 	div#logo img{
 		position: relative;
 		width: 100%;
-	}
-	div#titulo{
-		position: relative;
-		display: block;
-		width: 70%;
-		float: left;
-		text-align: center;
-	}
-	div#titulo h2{
-		word-wrap: none;
-		font-size: 2.5vw;
-		color: white;
 	}
 
 /*Menu e Links*/
@@ -92,9 +81,9 @@ body{
 
 	main.conteudo{
 		position: relative;
-		width: 80%;
+		width: 79.5%;
 		display: block;
-		float: right;
+		float: left;
 		padding-bottom: 5%;
 	}
 	img#subir{
@@ -139,6 +128,11 @@ body{
 		width: 50%;
 		display: inline-block;
 	}
+	div.blocoind{
+		position: relative;
+		width: 60%;
+		display: block;
+	}
 	table.formulario{
 		width: 50%;
 	}
@@ -149,6 +143,7 @@ body{
 		padding-top: 2%;
 	} 
 	input.field{
+		font-family: 'Titillium Web', sans-serif;
 		position: relative;
 		outline: none;
 		width: 100%;
@@ -158,6 +153,7 @@ body{
 		padding-bottom: 1%;
 	}
 	select.field{
+		font-family: 'Titillium Web', sans-serif;
 		position: relative;
 		outline: none;
 		width: 100%;
@@ -171,6 +167,7 @@ body{
 		color: #202020;
 	}
 	textarea.field{
+		font-family: 'Titillium Web', sans-serif;
 		position: relative;
 		outline: none;
 		width: 100%;
@@ -189,6 +186,7 @@ body{
 		border: 2px solid rgb(247, 122, 6);
 	}
 	input.enter{
+		font-family: 'Titillium Web', sans-serif;
 		position: relative;
 		outline: none;
 		border: 3px solid #202020;

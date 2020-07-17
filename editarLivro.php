@@ -183,7 +183,7 @@
 				</form>
 			</div>
 
-			<div class="duploB">
+			<div>
 				<h1>Está emprestado para:</h1>
 				
 				<table class="lista" id="expandir">
@@ -197,7 +197,7 @@
 					<?php
 						$sql = "SELECT aluno.nomeleitor, aluno.numero, aluno.ano, aluno.turma, emprestimo.dataemp, aluno.id AS alunoid, emprestimo.id AS empid
 								FROM emprestimo JOIN aluno
-								ON emprestimo.leitorid = aluno.id AND permicao = 'ALUNO' AND emprestimo.livroid = $id ORDER BY aluno.ano, aluno.turma";
+								ON emprestimo.leitorid = aluno.id AND permicao = 'ALUNO' AND emprestimo.livroid = $id AND estado = 'EMPRESTADO' ORDER BY aluno.ano, aluno.turma";
 						$r = mysqli_query($con, $sql);
 						$x = TRUE;
 						while($result = mysqli_fetch_array($r)){
@@ -213,7 +213,14 @@
 								<td class="XL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
 								<td class="X"><?php echo $result['ano']; ?>°</td>
 								<td class="X"><?php echo $turma; ?></td>
-								<td class="XL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1"><?php echo $result['dataemp']; ?></a></td>
+								<td class="XL">
+									<a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1">
+										<?php 
+											$dataHora = explode(' ', $result['dataemp']);
+											echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+										?>
+									</a>
+								</td>
 							</tr>
 					<?php 
 							}else{
@@ -223,7 +230,14 @@
 									<td class="YL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
 									<td class="Y"><?php echo $result['ano']; ?>°</td>
 									<td class="Y"><?php echo $turma; ?></td>
-									<td class="YL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1"><?php echo $result['dataemp']; ?></a></td>
+									<td class="YL">
+										<a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1">
+											<?php 
+												$dataHora = explode(' ', $result['dataemp']);
+												echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+											?>
+										</a>
+									</td>
 								</tr>
 					<?php 
 							}
@@ -236,7 +250,7 @@
 
 						$sql = "SELECT professor.nomeleitor, emprestimo.dataemp, professor.id AS profid, emprestimo.id AS empid
 								FROM emprestimo JOIN professor
-								ON emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' AND emprestimo.livroid = $id ORDER BY professor.nomeleitor";
+								ON emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' AND emprestimo.livroid = $id AND estado = 'EMPRESTADO' ORDER BY professor.nomeleitor";
 						$r = mysqli_query($con, $sql);
 						while($result = mysqli_fetch_array($r)){
 							if ($x){
@@ -244,7 +258,14 @@
 								<tr>
 									<td class="XL"><a class="emplink" href="editarAP.php?id=<?php echo $result['profid']; ?>&tipo=0"><?php echo $result['nomeleitor']; ?></a></td>
 									<td class="X" colspan="3">Professor</td>
-									<td class="XL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=0"><?php echo $result['dataemp']; ?></a></td>
+									<td class="XL">
+										<a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=0">
+											<?php 
+												$dataHora = explode(' ', $result['dataemp']);
+												echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+											?>
+										</a>
+									</td>
 								</tr>
 					<?php 
 							}else{
@@ -252,7 +273,127 @@
 								<tr>
 									<td class="YL"><a class="emplink" href="editarAP.php?id=<?php echo $result['profid']; ?>&tipo=0"><?php echo $result['nomeleitor']; ?></a></td>
 									<td class="Y" colspan="3">Professor</td>
-									<td class="YL"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=0"><?php echo $result['dataemp']; ?></a></td>
+									<td class="YL">
+										<a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=0">
+											<?php 
+												$dataHora = explode(' ', $result['dataemp']);
+												echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+											?>
+										</a>
+									</td>
+								</tr>
+				<?php 
+							}
+							if ($x) {
+								$x = FALSE;
+							}else{
+								$x = TRUE;
+							}
+						}
+				?>
+
+
+				</table>
+			<div>
+
+			<div>
+				<h1>Foi emprestado para:</h1>
+				
+				<table class="lista" id="expandir">
+					<tr>
+						<th>Nome</th>
+						<th>Número</th>
+						<th>Ano</th>
+						<th>Turma</th>
+						<th>Data e hora da Devolução</th>
+					</tr>
+					<?php
+						$sql = "SELECT aluno.nomeleitor, aluno.numero, aluno.ano, aluno.turma, emprestimo.datadev, aluno.id AS alunoid, emprestimo.id AS empid
+								FROM emprestimo JOIN aluno
+								ON emprestimo.leitorid = aluno.id AND permicao = 'ALUNO' AND emprestimo.livroid = $id AND estado = 'ENTREGUE' ORDER BY aluno.ano, aluno.turma";
+						$r = mysqli_query($con, $sql);
+						$x = TRUE;
+						while($result = mysqli_fetch_array($r)){
+							for ($i = 0; $i <= 3; $i++){
+								if ($result['turma'] == $valores[$i]) {
+									$turma = $cursos[$i];
+								}
+							}
+							if ($x){
+					?>
+							<tr>
+								<td class="X"><?php echo $result['nomeleitor']; ?></td>
+								<td class="XL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
+								<td class="X"><?php echo $result['ano']; ?>°</td>
+								<td class="X"><?php echo $turma; ?></td>
+								<td class="XL">
+									<a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1">
+										<?php 
+											$dataHora = explode(' ', $result['datadev']);
+											echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+										?>
+									</a>
+								</td>
+							</tr>
+					<?php 
+							}else{
+					?>
+								<tr>
+									<td class="Y"><?php echo $result['nomeleitor']; ?></td>
+									<td class="YL"><a class="emplink" href="editarAP.php?id=<?php echo $result['alunoid']; ?>&tipo=1"><?php echo $result['numero']; ?></a></td>
+									<td class="Y"><?php echo $result['ano']; ?>°</td>
+									<td class="Y"><?php echo $turma; ?></td>
+									<td class="YL">
+										<a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=1">
+											<?php 
+												$dataHora = explode(' ', $result['datadev']);
+												echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+											?>
+										</a>
+									</td>
+								</tr>
+					<?php 
+							}
+							if ($x) {
+								$x = FALSE;
+							}else{
+								$x = TRUE;
+							}
+						}
+
+						$sql = "SELECT professor.nomeleitor, emprestimo.datadev, professor.id AS profid, emprestimo.id AS empid
+								FROM emprestimo JOIN professor
+								ON emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' AND emprestimo.livroid = $id AND estado = 'ENTREGUE' ORDER BY professor.nomeleitor";
+						$r = mysqli_query($con, $sql);
+						while($result = mysqli_fetch_array($r)){
+							if ($x){
+					?>
+								<tr>
+									<td class="XL"><a class="emplink" href="editarAP.php?id=<?php echo $result['profid']; ?>&tipo=0"><?php echo $result['nomeleitor']; ?></a></td>
+									<td class="X" colspan="3">Professor</td>
+									<td class="XL">
+										<a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=0">
+											<?php 
+												$dataHora = explode(' ', $result['datadev']);
+												echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+											?>
+										</a>
+									</td>
+								</tr>
+					<?php 
+							}else{
+					?>
+								<tr>
+									<td class="YL"><a class="emplink" href="editarAP.php?id=<?php echo $result['profid']; ?>&tipo=0"><?php echo $result['nomeleitor']; ?></a></td>
+									<td class="Y" colspan="3">Professor</td>
+									<td class="YL">
+										<a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid']; ?>&tipo=0">
+											<?php 
+												$dataHora = explode(' ', $result['datadev']);
+												echo date("d/m/Y", strtotime($dataHora[0])) . ' - ' . substr($dataHora[1], 0, 5); 
+											?>
+										</a>
+									</td>
 								</tr>
 				<?php 
 							}

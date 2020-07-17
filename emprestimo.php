@@ -64,7 +64,7 @@
 						</tr>
 
 						<tr>
-							<td>Nome<input type="text" name="nome" id="nome" class="field" maxlength="85"></td>
+							<td>Nome<input type="text" name="nome" class="field" maxlength="85"></td>
 						</tr>
 
 						<tr>
@@ -92,7 +92,23 @@
 					<table class="formulario">
 						
 						<tr>
-							<td>Nome<input type="text" name="nome" id="nome" class="field" maxlength="85" required="true"></td>
+							<td>Nome
+								<input type="text" name="nome" id="nome" class="field" maxlength="85" required="true" list="autocomp">
+								
+								<datalist id="autocomp">
+									<?php
+										include_once('Conexao.php');
+
+										$sql = 'SELECT nomeleitor FROM professor';
+										$r = mysqli_query($con, $sql);
+
+										while ($result = mysqli_fetch_array($r)) {
+											echo '<option value="' . $result['nomeleitor'] . '"></option>';
+										}
+									
+									?>
+								</datalist>
+							</td>
 						</tr>
 
 						<tr>

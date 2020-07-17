@@ -3,11 +3,12 @@
 	$livro = $_POST["livroId"];
 
 	include_once("Conexao.php");
-
+	
 	$sql = "INSERT INTO professor VALUES (default, '$nome')";
 	mysqli_query($con, $sql);
+	
 
-	$sql = "SELECT MAX(id) AS id FROM professor";
+	$sql = "SELECT id FROM professor WHERE nomeleitor = '$nome'";
 	$result = mysqli_fetch_array(mysqli_query($con, $sql));
 	$id = $result['id'];
 

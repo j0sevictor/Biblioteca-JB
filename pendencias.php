@@ -153,11 +153,26 @@
 					<?php
 						$sql = "SELECT professor.nomeleitor, livro.titulo, emprestimo.estado, emprestimo.dataemp, emprestimo.datadev, professor.id AS pid, emprestimo.id AS empid
 								FROM emprestimo JOIN livro JOIN professor
-								ON emprestimo.livroid = livro.id AND emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' ORDER BY professor.nomeleitor, emprestimo.dataemp";
-								
+								ON emprestimo.livroid = livro.id AND emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' ORDER BY professor.nomeleitor, emprestimo.dataemp";		
 						$r = mysqli_query($con, $sql);
 
+						$sql = "SELECT professor.nomeleitor, COUNT(nomeleitor) AS span 
+								FROM emprestimo JOIN professor 
+								ON emprestimo.leitorid = professor.id AND permicao = 'PROFESSOR' GROUP BY nomeleitor";
+						$r2 = mysqli_query($con, $sql);
+
+						$result2 = mysqli_fetch_array($r2);
+						$x = TRUE;
 						while ($result = mysqli_fetch_array($r)){
+
+							if ($result['nomeleitor'] == $result2['nomeleitor'] && $x){
+								echo '<tr><td rowspan="' . $result2['span'] . '"><a class="emplink" href="editarAP.php?id=' . $result['pid'] . '&tipo=0">' . $result['nomeleitor'] . '</a></td>';
+								$x = FALSE;
+							}elseif ($result['nomeleitor'] != $result2['nomeleitor']){
+								$result2 = mysqli_fetch_array($r2);
+								echo '<tr><td rowspan="' . $result2['span'] . '"><a class="emplink" href="editarAP.php?id=' . $result['pid'] . '&tipo=0">' . $result['nomeleitor'] . '</a></td>';
+							}
+
 							if ($result['estado'] == 'Emprestado'){
 								$situ = TRUE;
 							}else{
@@ -165,11 +180,8 @@
 							}
 							$estado = intervalo_Data($result['dataemp'], $situ, FALSE);
 					?>
-							<tr>
-								<td><a class="emplink" href="editarAP.php?id=<?php echo $result['pid']?>&tipo=0"><?php echo $result['nomeleitor']; ?></a></td>
 								<td class="<?php echo $estado ?>" title="Pego à <?php echo intervalo_Data($result['dataemp'], $situ, TRUE); ?> dias"><a class="emplink" href="editarEmprestimo.php?id=<?php echo $result['empid'] ?>&tipo=0"><?php echo $result['titulo']; ?></a></td>
-							</tr>
-
+								</tr>
 					<?php
 						}
 					?>

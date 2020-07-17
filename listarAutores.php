@@ -28,7 +28,7 @@
 
 			<div id="lista">
 
-				<h1>Autores</h1>
+				<h1>Autores(as)</h1>
 
 				<form action="pesquisar.php" method="POST">
 					<select name="coluna" class="fieldPesq" required>

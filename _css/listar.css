@@ -154,6 +154,7 @@ table.visualizar2 td.XL:hover{
 	height: 32px;
 }
 #txtBusca{
+	font-family: 'Titillium Web', sans-serif;
 	background-color: transparent;
 	padding-left: 5px; 
 	font-size: 1.2vw;
@@ -163,6 +164,7 @@ table.visualizar2 td.XL:hover{
 	outline: none;
 }
 #btnBusca{
+	font-family: 'Titillium Web', sans-serif;
 	border: none;
 	float: right;
 	height: 32px;
@@ -175,6 +177,7 @@ table.visualizar2 td.XL:hover{
 }
 
 select.fieldPesq{
+	font-family: 'Titillium Web', sans-serif;
 	position: relative;
 	outline: none;
 	width: 50%;
@@ -220,6 +223,7 @@ a#emprestado:hover{
 	background-color: rgb(247, 122, 6);
 }
 button.linkBtEx{
+	font-family: 'Titillium Web', sans-serif;
 	background-color: tomato;
 	border: tomato solid 1px;
 	color: blanchedalmond;
@@ -236,6 +240,7 @@ button.linkBtEx:hover{
 	color: rgb(211, 195, 172);
 }
 button.linkBt{
+	font-family: 'Titillium Web', sans-serif;
 	background-color: darkcyan;
 	border: darkcyan solid 1px;
 	color: blanchedalmond;

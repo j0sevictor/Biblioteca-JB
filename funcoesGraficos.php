@@ -197,5 +197,105 @@
 			return $ntupla;
 		}
 	}
+
+	function maisLidos($con, $numeros=TRUE){
+		if ($numeros) {
+			$sql = 'SELECT COUNT(emprestimo.livroid) AS numero
+					FROM emprestimo JOIN livro
+					ON livro.id = emprestimo.livroid GROUP BY livro.titulo ORDER BY numero DESC';
+			$r = mysqli_query($con, $sql);
+
+			$tupla = '';
+			for ($i = 0; $i <= 9; $i++){
+				if ($result = mysqli_fetch_array($r)){
+					$tupla .= $result['numero'] . ", ";
+				} 
+			}
+
+			$t = strlen($tupla) - 2;
+			$ntupla = '';
+			for ($i = 0; $i <= $t; $i++){
+				if ($i >= $t) {
+					continue;
+				}
+				$ntupla .= $tupla[$i]; 
+			}
+
+			return $ntupla;
+		}else{
+			$sql = 'SELECT livro.titulo, COUNT(emprestimo.livroid) AS numero
+					FROM emprestimo JOIN livro
+					ON livro.id = emprestimo.livroid GROUP BY livro.titulo ORDER BY numero DESC';
+			$r = mysqli_query($con, $sql);
+
+			$tupla = '';
+			for ($i = 0; $i <= 9; $i++){
+				if ($result = mysqli_fetch_array($r)){
+					$tupla .= "'" . $result['titulo'] . "', "; 
+				}
+			}
+
+			$t = strlen($tupla) - 2;
+			$ntupla = '';
+			for ($i = 0; $i <= $t; $i++){
+				if ($i >= $t) {
+					continue;
+				}
+				$ntupla .= $tupla[$i]; 
+			}
+
+			return $ntupla;
+		}
+	}
+
+	function maisLidosAutores($con, $numeros=TRUE){
+		if ($numeros) {
+			$sql = 'SELECT COUNT(autor.id) AS numero
+					FROM emprestimo JOIN livro JOIN autor
+					ON livro.id = emprestimo.livroid AND livro.autor = autor.id GROUP BY autor.nome ORDER BY numero DESC;';
+			$r = mysqli_query($con, $sql);
+
+			$tupla = '';
+			for ($i = 0; $i <= 9; $i++){
+				if ($result = mysqli_fetch_array($r)){
+					$tupla .= $result['numero'] . ", ";
+				} 
+			}
+
+			$t = strlen($tupla) - 2;
+			$ntupla = '';
+			for ($i = 0; $i <= $t; $i++){
+				if ($i >= $t) {
+					continue;
+				}
+				$ntupla .= $tupla[$i]; 
+			}
+
+			return $ntupla;
+		}else{
+			$sql = 'SELECT autor.nome, COUNT(autor.id) AS numero
+					FROM emprestimo JOIN livro JOIN autor
+					ON livro.id = emprestimo.livroid AND livro.autor = autor.id GROUP BY autor.nome ORDER BY numero DESC;';
+			$r = mysqli_query($con, $sql);
+
+			$tupla = '';
+			for ($i = 0; $i <= 9; $i++){
+				if ($result = mysqli_fetch_array($r)){
+					$tupla .= "'" . $result['nome'] . "', "; 
+				}
+			}
+
+			$t = strlen($tupla) - 2;
+			$ntupla = '';
+			for ($i = 0; $i <= $t; $i++){
+				if ($i >= $t) {
+					continue;
+				}
+				$ntupla .= $tupla[$i]; 
+			}
+
+			return $ntupla;
+		}
+	}
     
 ?>

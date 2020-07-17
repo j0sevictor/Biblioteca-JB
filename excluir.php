@@ -8,7 +8,9 @@
     if ($tipo == 'LIVRO'){
 
         $sql = "DELETE FROM livro WHERE id = $id LIMIT 1";
+        mysqli_query($con, $sql);
 
+        $sql = "DELETE FROM emprestimo WHERE livroid = $id";
         mysqli_query($con, $sql);
 
         header('Location: listarLivros.php');
