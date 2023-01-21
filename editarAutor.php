@@ -40,8 +40,19 @@
 
 					<caption>
 						<span id="icone">
-							<a href="excluir.php?tipo=FOTO&target=<?php if (!empty($result["foto"])){ echo '_imagens/' . $result['foto']; }else{ echo '0'; } ?>&id=<?php echo $id ?>"><img src="_interface/foto.png" class="icone" title="Deletar a foto do autor"></a>
+							<img src="_interface/foto.png" class="icone" title="Deletar a foto do autor" onclick="abrirTelaExcluir()">
 						</span>
+
+						<script type="text/javascript">
+							function abrirTelaExcluir()
+							{
+								var r = confirm('Confirma excluir essa Imagem?');
+
+								if (r){
+									window.location.href = "excluir.php?tipo=FOTO&target=<?php if (!empty($result["foto"])){ echo '_imagens/' . $result['foto']; }else{ echo '0'; } ?>&id=<?php echo $id ?>";	
+								}
+							}
+						</script>
 					</caption>
 
 					<tr>

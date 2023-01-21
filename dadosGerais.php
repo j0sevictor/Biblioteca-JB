@@ -37,8 +37,6 @@
 			<div id="lista">
 
 				<h1>Dados das Turmas</h1>
-
-				<a class="P" href="dadosEspecificos.php">Dados Específicos</a>
 				
                 <h2>Empréstimos gerais</h2>
 

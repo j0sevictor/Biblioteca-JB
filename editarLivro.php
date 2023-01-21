@@ -31,9 +31,9 @@
 					$id = $_GET['id'];
 
 					include_once('Conexao.php');
-					$sql = "select livro.capa, livro.contra, livro.id, livro.titulo, livro.genero, autor.nome as autor, autor.id AS autorid, livro.cdd, livro.isbn, livro.exemplares, livro.dataRemessa
-							from livro join autor
-							on livro.autor = autor.id where livro.id = $id order by livro.titulo";					
+					$sql = "SELECT livro.capa, livro.contra, livro.id, livro.titulo, livro.genero, autor.nome AS autor, autor.id AS autorid, livro.cdd, livro.isbn, livro.exemplares, livro.dataRemessa
+							FROM livro JOIN autor ON livro.autor = autor.id 
+							WHERE livro.id = $id ORDER BY livro.titulo";					
 					$r = mysqli_query($con, $sql);
 					$result = mysqli_fetch_array($r);
 				?>
@@ -42,8 +42,24 @@
 
 					<caption>
 						<span id="icone">
-							<a href="excluir.php?tipo=IMAGEM&target=<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '0'; } ?>&id=<?php echo $id ?>&lado=capa"><img src="_interface/capa.png" class="icone" title="Deletar a capa do livro"></a>
-							<a href="excluir.php?tipo=IMAGEM&target=<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '0'; } ?>&id=<?php echo $id ?>&lado=contra"><img src="_interface/contra.png" class="icone" title="Deletar a contracapa"></a>
+							<img src="_interface/capa.png" class="icone" title="Deletar a capa do livro" onclick="abrirTelaExcluir('capa')">
+							<img src="_interface/contra.png" class="icone" title="Deletar a contracapa" onclick="abrirTelaExcluir('contra')">
+							<script type="text/javascript">
+								function abrirTelaExcluir(tipo)
+								{
+									var r = confirm('Confirma excluir essa Imagem?');
+
+									if (r){
+										if (tipo == 'capa'){
+											window.location.href = "excluir.php?tipo=IMAGEM&target=<?php if (!empty($result["capa"])){ echo '_imagens/' . $result['capa']; }else{ echo '0'; } ?>&id=<?php echo $id ?>&lado=capa";
+										}else if (tipo == 'contra')
+										{
+											window.location.href = "excluir.php?tipo=IMAGEM&target=<?php if (!empty($result["contra"])){ echo '_imagens/' . $result['contra']; }else{ echo '0'; } ?>&id=<?php echo $id ?>&lado=contra";
+										}
+											
+									}
+								}
+							</script>
 						</span>
 					</caption>
 

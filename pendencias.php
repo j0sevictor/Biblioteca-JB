@@ -10,7 +10,7 @@
 		$d1 = strtotime($datav[0]);
 		$d2 = strtotime($dataa);
 
-		$dataFinal = ($d2 - $d1) /86400;
+		$dataFinal = intdiv($d2 - $d1, 86400);
 		if (!$saberInt){
 			if ($emprestado == 1){
 				if ($dataFinal < 15){

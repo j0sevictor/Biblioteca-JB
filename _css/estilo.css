@@ -86,6 +86,9 @@ body{
 		float: left;
 		padding-bottom: 5%;
 	}
+	p.txtIntro{
+		text-align: justify;
+	}
 	img#subir{
 		position: fixed;
 		left: 1%;
@@ -131,6 +134,11 @@ body{
 	div.blocoind{
 		position: relative;
 		width: 60%;
+		display: block;
+	}
+	div.blocoTodo{
+		position: relative;
+		width: 100%;
 		display: block;
 	}
 	table.formulario{
